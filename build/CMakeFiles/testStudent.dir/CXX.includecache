@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/homeAutomator/src/main.cpp
+unistd.h
+-
+fcntl.h
+-
+sys/ioctl.h
+-
+linux/i2c-dev.h
+-
+stdio.h
+-
+iostream
+-
+iomanip
+-
+thread
+-
+chrono
+-
+

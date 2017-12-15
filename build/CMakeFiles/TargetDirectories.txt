@@ -1,0 +1,3 @@
+/home/pi/homeAutomator/build/CMakeFiles/rebuild_cache.dir
+/home/pi/homeAutomator/build/CMakeFiles/edit_cache.dir
+/home/pi/homeAutomator/build/CMakeFiles/homeAutomator.dir

@@ -1,0 +1,3 @@
+/home/pi/homeAutomator/CMakeFiles/rebuild_cache.dir
+/home/pi/homeAutomator/CMakeFiles/edit_cache.dir
+/home/pi/homeAutomator/CMakeFiles/2position_cntrl.dir

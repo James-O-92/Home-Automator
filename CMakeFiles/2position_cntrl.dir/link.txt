@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/2position_cntrl.dir/2_position_cntrl.cpp.o  -o 2position_cntrl -rdynamic 
