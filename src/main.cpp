@@ -9,6 +9,11 @@
 #include <chrono>         // std::chrono::seconds
 #include "i2c.h"
 
+void i2c_test(i2c *i2c_bus)
+{
+    *i2c_bus.read_register();
+}
+
 
 using namespace std;
 
@@ -17,6 +22,8 @@ int main(int argc, char* argv[])
     int temp = 0;
 
     i2c i2c_bus();
+
+    i2c_test(&i2c_bus);
 
     while(1){
 
