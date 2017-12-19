@@ -6,11 +6,11 @@ class i2c
 {
     public:
         i2c();
-        virtual ~i2c();
-
-    protected:
+        unsigned char* read_register(unsigned char reg, int address);
 
     private:
+
+        string i2c_File;
 };
 
 #endif // I2C_H
