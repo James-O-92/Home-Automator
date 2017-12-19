@@ -1,5 +1,6 @@
 #ifndef I2C_H
 #define I2C_H
+#include <string>
 
 
 class i2c
@@ -10,7 +11,7 @@ class i2c
 
     private:
 
-        string i2c_File;
+        std::string i2c_File;
 };
 
 #endif // I2C_H

@@ -10,6 +10,6 @@ unsigned char *read_register(unsigned char reg, int address)
 {
 
     unsigned char buffer[100];
-    return &buffer;
+    return buffer;
 }
 
