@@ -6,7 +6,7 @@
 class i2c
 {
     public:
-        i2c();
+        i2c(string file);
         unsigned char* read_register(unsigned char reg, int address);
 
     private:
