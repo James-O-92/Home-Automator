@@ -22,12 +22,12 @@ int main(int argc, char* argv[])
 {
     int temp = 0;
 
-    i2c i2c_bus();
+    i2c* i2c_bus = new i2c;
     /*
     i2c *i2c_bus_ref;
     i2c_bus_ref = &i2c_bus;
     */
-    i2c_test(i2c_bus);
+    //i2c_test(i2c_bus);
 
     while(1){
 
