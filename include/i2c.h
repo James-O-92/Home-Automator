@@ -2,16 +2,17 @@
 #define I2C_H
 #include <string>
 
+using namespace std;
 
 class i2c
 {
     public:
-        i2c(string file);
+        i2c(string file)
         unsigned char* read_register(unsigned char reg, int address);
 
     private:
 
-        std::string i2c_File;
+        string i2c_File;
 };
 
 #endif // I2C_H
