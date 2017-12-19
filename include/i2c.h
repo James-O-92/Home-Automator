@@ -7,7 +7,7 @@ using namespace std;
 class i2c
 {
     public:
-        void init(string file)
+        void init(string file);
         unsigned char* read_register(unsigned char reg, int address);
 
     private:
