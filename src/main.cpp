@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
     i2c *i2c_bus_ref;
     i2c_bus_ref = &i2c_bus;
     */
-    //i2c_test(i2c_bus);
+    i2c_test(i2c_bus);
 
     while(1){
 
