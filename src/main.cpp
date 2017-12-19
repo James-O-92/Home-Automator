@@ -12,7 +12,7 @@
 void i2c_test(i2c* i2c_bus)
 {
     cout << "test" << endl;
-    //*i2c_bus->read_register();
+    i2c_bus->read_register();
 }
 
 
