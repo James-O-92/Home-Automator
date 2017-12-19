@@ -1,8 +1,9 @@
 #include "i2c.h"
+#include <string>
 
 using namespace std;
 
-i2c::i2c(string file)
+void i2c::init(string file)
 {
     i2c_File = file;
 }
