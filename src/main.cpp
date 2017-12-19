@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
+#include "i2c.h"
 
 
 using namespace std;
