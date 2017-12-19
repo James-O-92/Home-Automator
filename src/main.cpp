@@ -12,7 +12,9 @@
 void i2c_test(i2c* i2c_bus)
 {
     cout << "test" << endl;
-    i2c_bus->read_register();
+    unsigned char reg = 0x01;
+    int addr = 49;
+    i2c_bus->read_register(reg, addr);
 }
 
 
