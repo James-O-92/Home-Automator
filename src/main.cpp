@@ -15,6 +15,8 @@ int main(int argc, char* argv[])
 {
     int temp = 0;
 
+    i2c i2c_bus();
+
     while(1){
 
 	int file_i2c;
