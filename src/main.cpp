@@ -113,7 +113,7 @@ int main(int argc, char* argv[])
 	//temperature conversion
 
 
-	if(temp <= 0x6C)
+	if(TEMP <= 0x6C)
     {
         int addr = 0x63;          //<<<<<The I2C address of the slave
         if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
@@ -137,7 +137,7 @@ int main(int argc, char* argv[])
         {
         cout << "DAC output 5V" << endl;
         }
-    }else if(temp >= 0x6D)
+    }else if(TEMP >= 0x6D)
     {
          int addr = 0x63;          //<<<<<The I2C address of the slave
         if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
