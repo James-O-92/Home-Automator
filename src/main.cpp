@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
-		printf("ADC conversion register: 0x%X 0x%X\n\n\n", buffer[0], buffer[1]);
+		printf("ADC conversion register: 0x%X 0x%X\n", buffer[0], buffer[1]);
 		//cout << "Data read: " << hex(buffer[0]) << endl;
 	}
 
@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
 	TEMP = TEMP << 8;
 	TEMP = (unsigned short) temp[1];
 
-	printf("TEMP: 0x%X, %d degrees",TEMP,TEMP);
+	printf("TEMP: 0x%X, %d degrees\n",TEMP,TEMP);
 
 
 	//temperature conversion
@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-        cout << "DAC output 5V" << endl;
+        cout << "DAC output 5V" << endl << endl;
         }
     }else if(TEMP >= 60)
     {
@@ -160,7 +160,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-        cout << "DAC output 0V" << endl;
+        cout << "DAC output 0V" << endl << endl;
         }
     }
 
