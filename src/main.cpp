@@ -180,7 +180,7 @@ int main(int argc, char* argv[])
     }
 
 
-    this_thread::sleep_for (std::chrono::seconds(0.5));
+    this_thread::sleep_for (std::chrono::seconds(1));
 
 
     }
