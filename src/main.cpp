@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 	TEMP = TEMP + (unsigned short) temp[1];
 
 	calibrated = (float) TEMP;
-    calibrated = calibrated*0.033433;
+    calibrated = calibrated*0.0033433;
     calibrated = calibrated - 17.58827;
 
 
