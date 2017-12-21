@@ -36,6 +36,7 @@ int main(int argc, char* argv[])
 	float sp1 = atof(argv[1]);
 	float sp2 = atof(argv[2]);
 	int wait = atof(argv[3]);
+	int flag = 0;
 
 
 
@@ -150,6 +151,7 @@ int main(int argc, char* argv[])
         else
         {
         cout << "DAC output 5V" << endl << endl;
+        flag = 1;
         }
     }else if(calibrated >= sp2)
     {
@@ -174,7 +176,12 @@ int main(int argc, char* argv[])
         else
         {
         cout << "DAC output 0V" << endl << endl;
-        this_thread::sleep_for (std::chrono::seconds(wait));
+        if(flag == 1)
+        {
+            flag = 0;
+            this_thread::sleep_for (std::chrono::seconds(wait));
+            cout << "cool down..." << endl;
+        }
         }
     } else
     {
