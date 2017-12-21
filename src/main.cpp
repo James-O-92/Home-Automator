@@ -29,11 +29,18 @@ int main(int argc, char* argv[])
 
     i2c_test(i2c_bus);
 
-    while(1){
-
-	int file_i2c;
+    int file_i2c;
 	int length;
 	unsigned char buffer[60] = {0};
+
+	float sp1 = argv[1];
+	float sp2 = argv[2];
+
+
+
+    while(1){
+
+
 
 
 	//----- OPEN THE I2C BUS -----
@@ -119,7 +126,7 @@ int main(int argc, char* argv[])
 	//temperature conversion
 
 
-	if(calibrated <= 50)
+	if(calibrated <= sp1)
     {
         int addr = 0x63;          //<<<<<The I2C address of the slave
         if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
@@ -143,7 +150,7 @@ int main(int argc, char* argv[])
         {
         cout << "DAC output 5V" << endl << endl;
         }
-    }else if(calibrated >= 60)
+    }else if(calibrated >= sp2)
     {
          int addr = 0x63;          //<<<<<The I2C address of the slave
         if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
