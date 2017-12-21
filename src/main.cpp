@@ -23,6 +23,7 @@ int main(int argc, char* argv[])
 {
     unsigned char temp[2];
     unsigned short TEMP = 0;
+    int calibrated = 0;
 
     i2c* i2c_bus = new i2c;
 
@@ -102,7 +103,7 @@ int main(int argc, char* argv[])
 
 	temp[0] = buffer[0];
 	temp[1] = buffer[1];
-
+    TEMP = 0;
 	TEMP = (unsigned short) temp[0];
 	TEMP = TEMP << 8;
 	TEMP = (unsigned short) temp[1];
@@ -113,7 +114,7 @@ int main(int argc, char* argv[])
 	//temperature conversion
 
 
-	if(TEMP <= 0x6C)
+	if(TEMP <= 50)
     {
         int addr = 0x63;          //<<<<<The I2C address of the slave
         if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
@@ -137,7 +138,7 @@ int main(int argc, char* argv[])
         {
         cout << "DAC output 5V" << endl;
         }
-    }else if(TEMP >= 0x6D)
+    }else if(TEMP >= 60)
     {
          int addr = 0x63;          //<<<<<The I2C address of the slave
         if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
