@@ -21,7 +21,8 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    int temp = 0;
+    unsigned char temp[2];
+    unsigned short TEMP = 0;
 
     i2c* i2c_bus = new i2c;
 
@@ -99,7 +100,19 @@ int main(int argc, char* argv[])
 		//cout << "Data read: " << hex(buffer[0]) << endl;
 	}
 
-	temp = buffer[0];
+	temp[0] = buffer[0];
+	temp[1] = buffer[1];
+
+	TEMP = (unsigned short) temp[0];
+	TEMP = TEMP << 8;
+	TEMP = (unsigned short) temp[1];
+
+	printf("TEMP: 0x%X, %d degrees",TEMP,TEMP);
+
+    unsigned short
+	//temperature conversion
+
+
 	if(temp <= 0x6C)
     {
         int addr = 0x63;          //<<<<<The I2C address of the slave
