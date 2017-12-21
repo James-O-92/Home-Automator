@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
     TEMP = 0;
 	TEMP = (unsigned short) temp[0];
 	TEMP = TEMP << 8;
-	TEMP = (unsigned short) temp[1];
+	TEMP = TEMP + (unsigned short) temp[1];
 
 	calibrated = (int) TEMP;
 
