@@ -35,6 +35,7 @@ int main(int argc, char* argv[])
 
 	float sp1 = atof(argv[1]);
 	float sp2 = atof(argv[2]);
+	int wait = atof(argv[3]);
 
 
 
@@ -173,6 +174,7 @@ int main(int argc, char* argv[])
         else
         {
         cout << "DAC output 0V" << endl << endl;
+        this_thread::sleep_for (std::chrono::seconds(wait));
         }
     } else
     {
