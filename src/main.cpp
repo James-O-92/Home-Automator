@@ -108,6 +108,8 @@ int main(int argc, char* argv[])
 	TEMP = TEMP << 8;
 	TEMP = (unsigned short) temp[1];
 
+	calibrated = (int) TEMP;
+
 
 
 	printf("TEMP: %d degrees\n",TEMP);
@@ -116,7 +118,7 @@ int main(int argc, char* argv[])
 	//temperature conversion
 
 
-	if(TEMP <= 190)
+	if(calibrated <= 190)
     {
         int addr = 0x63;          //<<<<<The I2C address of the slave
         if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
@@ -140,7 +142,7 @@ int main(int argc, char* argv[])
         {
         cout << "DAC output 5V" << endl << endl;
         }
-    }else if(TEMP >= 240)
+    }else if(calibrated >= 240)
     {
          int addr = 0x63;          //<<<<<The I2C address of the slave
         if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
