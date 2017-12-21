@@ -179,8 +179,8 @@ int main(int argc, char* argv[])
         if(flag == 1)
         {
             flag = 0;
-            this_thread::sleep_for (std::chrono::seconds(wait));
             cout << "cool down..." << endl;
+            this_thread::sleep_for (std::chrono::seconds(wait));
         }
         }
     } else
