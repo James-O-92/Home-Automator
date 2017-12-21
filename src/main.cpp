@@ -33,8 +33,8 @@ int main(int argc, char* argv[])
 	int length;
 	unsigned char buffer[60] = {0};
 
-	float sp1 = argv[1];
-	float sp2 = argv[2];
+	float sp1 = atof(argv[1]);
+	float sp2 = atof(argv[2]);
 
 
 
