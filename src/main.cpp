@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 
 	printf("TEMP: 0x%X, %d degrees",TEMP,TEMP);
 
-    unsigned short
+
 	//temperature conversion
 
 
