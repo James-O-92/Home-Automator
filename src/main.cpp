@@ -113,7 +113,7 @@ int main(int argc, char* argv[])
     calibrated = calibrated - 17.58827;
 
 
-	printf("TEMP: %d degrees\n",TEMP);
+	printf("Temp: %f degrees\n",calibrated);
 
 
 	//temperature conversion
