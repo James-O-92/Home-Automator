@@ -14,7 +14,7 @@ void i2c_test(i2c* i2c_bus)
 {
     cout << "i2c_test" << endl;
     unsigned char reg = 0x01;
-    int addr = 49;
+    int addr = 0x49;
     i2c_bus->init("/dev/i2c-1");
     unsigned char buffer[60] = {0};
     unsigned char* recv_buf;

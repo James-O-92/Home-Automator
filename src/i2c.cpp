@@ -56,8 +56,6 @@ int i2c::write_register(int addr, unsigned char reg, int length, unsigned char b
 		return -2;
 	}
 
-
-    length =3;
 	if (write(file_i2c, bytes, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
 		// ERROR HANDLING: i2c transaction failed
