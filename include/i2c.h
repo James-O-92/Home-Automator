@@ -19,7 +19,7 @@ class i2c
 
         string i2c_File;
         char *filename;
-        unsigned char buffer[100];
+        //unsigned char buffer[100];
         int file_i2c;
 };
 
