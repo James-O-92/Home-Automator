@@ -106,7 +106,7 @@ int i2c::write_register(int addr1, unsigned char reg, int length, unsigned char 
 	buffer[2] = 0b10000011;
 
 	//length = 3;			//<<< Number of bytes to write
-	if (write(file_i2c, buffer, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
+	if (write(file_i2c, bytes, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
 		// ERROR HANDLING: i2c transaction failed
 		cout << "Failed to write to the i2c bus.\n" << endl;
