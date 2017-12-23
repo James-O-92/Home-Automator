@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     i2c* i2c_bus = new i2c;
 
     i2c_test(i2c_bus);
-
+    /*
     int file_i2c;
 	int length;
 	unsigned char buffer[60] = {0};
@@ -194,5 +194,6 @@ int main(int argc, char* argv[])
 
 
     }
+    */
 }
 

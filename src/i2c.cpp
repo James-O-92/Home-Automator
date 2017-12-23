@@ -26,6 +26,7 @@ unsigned char* i2c::read_register(unsigned char reg, int address)
 	{
 	    cout << "opened i2c bus" << endl;
 	}
+	cout << "returning" << endl;
 	return buffer;
 }
 
