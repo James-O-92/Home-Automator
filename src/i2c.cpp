@@ -8,16 +8,6 @@ void i2c::init(string file)
 {
     i2c_File = file;
 
-    filename = (char*)i2c_File.c_str();
-	if ((file_i2c = open(filename, O_RDWR)) < 0)
-	{
-		//ERROR HANDLING: you can check errno to see what went wrong
-		cout << "Failed to open the i2c bus" << endl;
-	}else
-	{
-	    cout << "opened i2c bus" << endl;
-	}
-
 }
 
 
@@ -52,6 +42,16 @@ int i2c::write_register(int addr, unsigned char reg, int length, unsigned char b
     buf[0] = 0b00000001;
     buf[1] = 0b10000100;
 	buf[2] = 0b10000011;
+
+    filename = (char*)i2c_File.c_str();
+	if ((file_i2c = open(filename, O_RDWR)) < 0)
+	{
+		//ERROR HANDLING: you can check errno to see what went wrong
+		cout << "Failed to open the i2c bus" << endl;
+	}else
+	{
+	    cout << "opened i2c bus" << endl;
+	}
 
     cout << "write register called" << endl;
 
