@@ -29,15 +29,21 @@ int main(int argc, char* argv[])
     i2c* i2c_bus = new i2c;
 
     i2c_test(i2c_bus);
-    /*
+
     int file_i2c;
 	int length;
 	unsigned char buffer[60] = {0};
 
-	float sp1 = atof(argv[1]);
-	float sp2 = atof(argv[2]);
-	int wait = atof(argv[3]);
-	int flag = 0;
+    if(argc == 3)
+    {
+        float sp1 = atof(argv[1]);
+        float sp2 = atof(argv[2]);
+        int wait = atof(argv[3]);
+        int flag = 0;
+    }else
+    {
+        return -1;
+    }
 
 
 
@@ -194,6 +200,6 @@ int main(int argc, char* argv[])
 
 
     }
-    */
+
 }
 
