@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
+#include <string.h>
 #include "i2c.h"
 
 void i2c_test(i2c* i2c_bus)
