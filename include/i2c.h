@@ -12,8 +12,8 @@ class i2c
 {
     public:
         void init(string file);
-        unsigned char* read_register(unsigned char reg, int address);
-        int write_register(unsigned char reg, int address, unsigned char *bytes);
+        unsigned char* read_register(int address, unsigned char reg, int length);
+        int write_register(int address, unsigned char reg, int length, unsigned char *bytes);
 
     private:
 
