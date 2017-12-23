@@ -17,6 +17,7 @@ void i2c_test(i2c* i2c_bus)
     int addr = 49;
     i2c_bus->init("/dev/i2c-1");
     unsigned char buffer[60] = {0};
+    unsigned char* recv_buf;
     //i2c_bus->read_register(addr,reg,3);
 
     buffer[0] = 0b00000001;
@@ -29,9 +30,9 @@ void i2c_test(i2c* i2c_bus)
 
     buffer[0] = 0b00000000;
     buffer[1] = 0b00000000;
-    strcpy(buffer,(const char*)i2c_bus->read_register(addr,reg,2));
+    recv_buf = i2c_bus->read_register(addr,reg,2);
 
-    printf("ADC conversion register: 0x%X 0x%X\n", buffer[0], buffer[1]);
+    //printf("ADC conversion register: 0x%X 0x%X\n", buffer[0], buffer[1]);
 }
 
 using namespace std;
