@@ -70,10 +70,7 @@ int i2c::write_register(int addr, unsigned char reg, int length, unsigned char b
 		// ERROR HANDLING: i2c transaction failed
 		cout << "Failed to write to the i2c bus.\n" << endl;
 	}
-	else
-    {
-        printf("wrote to config register: 0x%X 0x%X 0x%X\n", buffer[0], buffer[1], buffer[2]);
-	}
+
 
     return 0;
 }
