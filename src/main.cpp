@@ -34,12 +34,16 @@ int main(int argc, char* argv[])
 	int length;
 	unsigned char buffer[60] = {0};
 
+	float sp1 = 0;
+    float sp2 = 0;
+    int wait = 0;
+    int flag = 0;
+
     if(argc == 3)
     {
-        float sp1 = atof(argv[1]);
-        float sp2 = atof(argv[2]);
-        int wait = atof(argv[3]);
-        int flag = 0;
+        sp1 = atof(argv[1]);
+        sp2 = atof(argv[2]);
+        wait = atof(argv[3]);
     }else
     {
         return -1;
