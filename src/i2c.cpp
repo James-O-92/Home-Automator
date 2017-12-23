@@ -36,7 +36,7 @@ unsigned char* i2c::read_register(int addr,unsigned char reg,int length)
 	return buffer;
 }
 
-int i2c::write_register(int addr, unsigned char reg, int length, unsigned char bytes[])
+int i2c::write_register(int addr1, unsigned char reg, int length1, unsigned char bytes[])
 {
     /*
     unsigned char buf[60];
