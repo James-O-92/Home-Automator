@@ -7,26 +7,24 @@ using namespace std;
 void i2c::init(string file)
 {
     i2c_File = file;
+
+    *filename = (char*)i2c_File.c_str();
+	if ((file_i2c = open(filename, O_RDWR)) < 0)
+	{
+		//ERROR HANDLING: you can check errno to see what went wrong
+		cout << "Failed to open the i2c bus" << endl;
+	}else
+	{
+	    cout << "opened i2c bus" << endl;
+	}
+
 }
 
 
 unsigned char* i2c::read_register(unsigned char reg, int address)
 {
     cout << "reading register called" << endl;
-    unsigned char buffer[100];
-    int file_i2c;
 
-    char *filename = (char*)i2c_File.c_str();
-	if ((file_i2c = open(filename, O_RDWR)) < 0)
-	{
-		//ERROR HANDLING: you can check errno to see what went wrong
-		cout << "Failed to open the i2c bus" << endl;
-		return buffer;
-	}else
-	{
-	    cout << "opened i2c bus" << endl;
-	}
-	cout << "returning" << endl;
 	return buffer;
 }
 
