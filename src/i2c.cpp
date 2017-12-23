@@ -46,7 +46,7 @@ unsigned char* i2c::read_register(int addr,unsigned char reg,int length)
 	return buffer;
 }
 
-int i2c::write_register(unsigned char reg, int addr, unsigned char *bytes)
+int i2c::write_register(int addr, unsigned char reg, int length, unsigned char *bytes)
 {
 
     cout << "write register called" << endl;
