@@ -39,7 +39,6 @@ unsigned char* i2c::read_register(int addr,unsigned char reg,int length)
 int i2c::write_register(int addr, unsigned char reg, int length, unsigned char bytes[])
 {
 
-
 	int file_i2c;
 
 	char *filename = (char*)"/dev/i2c-1";
@@ -57,6 +56,8 @@ int i2c::write_register(int addr, unsigned char reg, int length, unsigned char b
 		return -2;
 	}
 
+
+
 	if (write(file_i2c, bytes, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
 		// ERROR HANDLING: i2c transaction failed
@@ -64,7 +65,7 @@ int i2c::write_register(int addr, unsigned char reg, int length, unsigned char b
 	}
 	else
     {
-        printf("wrote to config register");
+        printf("wrote to config register: 0x%X 0x%X 0x%X\n", buffer[0], buffer[1], buffer[2]);
 	}
 
     return 0;
