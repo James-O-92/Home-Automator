@@ -13,7 +13,7 @@ class i2c
     public:
         void init(string file);
         unsigned char* read_register(int address, unsigned char reg, int length);
-        int write_register(int addr, unsigned char reg, int length, unsigned char *bytes);
+        int write_register(int addr, unsigned char reg, int length, unsigned char bytes[]);
 
     private:
 
