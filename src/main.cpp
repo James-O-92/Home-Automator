@@ -24,14 +24,14 @@ void i2c_test(i2c* i2c_bus)
     buffer[1] = 0b10000100;
 	buffer[2] = 0b10000011;
     i2c_bus->write_register(addr,0x01,3,buffer);
-
+    /*
     buffer[0] = 0b00000000;
     i2c_bus->write_register(addr,0x01,1,buffer);
 
     buffer[0] = 0b00000000;
     buffer[1] = 0b00000000;
     recv_buf = i2c_bus->read_register(addr,reg,2);
-
+    */
     //printf("ADC conversion register: 0x%X 0x%X\n", buffer[0], buffer[1]);
 }
 
