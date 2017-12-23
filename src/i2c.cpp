@@ -21,7 +21,7 @@ void i2c::init(string file)
 }
 
 
-unsigned char* i2c::read_register(int address,unsigned char reg,int length)
+unsigned char* i2c::read_register(int addr,unsigned char reg,int length)
 {
     cout << "read register called" << endl;
 
@@ -46,7 +46,7 @@ unsigned char* i2c::read_register(int address,unsigned char reg,int length)
 	return buffer;
 }
 
-int write_register(unsigned char reg, int address, unsigned char *bytes)
+int i2c::write_register(unsigned char reg, int addr, unsigned char *bytes)
 {
 
     cout << "write register called" << endl;
@@ -58,7 +58,7 @@ int write_register(unsigned char reg, int address, unsigned char *bytes)
 		return -1;
 	}
 
-    if (write(file_i2c, buffer, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
+    if (write(file_i2c, bytes, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
 		// ERROR HANDLING: i2c transaction failed
 		cout << "Failed to write to the i2c bus.\n" << endl;
