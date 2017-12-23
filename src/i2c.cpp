@@ -16,7 +16,7 @@ unsigned char* i2c::read_register(unsigned char reg, int address)
     unsigned char buffer[100];
     int file_i2c;
 
-    char *filename = (char*)"/dev/i2c-1";
+    char *filename = (char*)i2c_File;
 	if ((file_i2c = open(filename, O_RDWR)) < 0)
 	{
 		//ERROR HANDLING: you can check errno to see what went wrong
