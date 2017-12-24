@@ -1,6 +1,7 @@
 #ifndef ADC_H
 #define ADC_H
 #include "i2c.h"
+#include <iostream>
 
 using namespace std;
 
