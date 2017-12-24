@@ -31,7 +31,7 @@ void i2c_test(i2c* i2c_bus)
 
     string output = i2c_bus->read_register(addr,0x01,2);
 
-    cout "ADC: " << output << endl;
+    cout << "ADC: " << output << endl;
 }
 
 using namespace std;
