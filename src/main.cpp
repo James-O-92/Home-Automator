@@ -25,6 +25,10 @@ void i2c_test(i2c* i2c_bus)
 	buffer[2] = 0b10000011;
     i2c_bus->write_register(addr,0x01,3,buffer);
 
+    buffer[0] = 0x00;
+    i2c_bus->write_register(addr,0x01,1,buffer);
+
+    i2c_bus->read_register(addr,0x01,2,&buffer);
 }
 
 using namespace std;

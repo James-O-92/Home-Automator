@@ -20,7 +20,7 @@ void i2c::init(string file)
 }
 
 
-unsigned char* i2c::read_register(int addr,unsigned char reg,int length)
+unsigned char* i2c::read_register(int addr,unsigned char reg,int length, unsigned char **arr)
 {
     cout << "read register called" << endl;
 
@@ -31,7 +31,7 @@ unsigned char* i2c::read_register(int addr,unsigned char reg,int length)
 		return buffer;
 	}
 
-    if (read(file_i2c, buffer, length) != length)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
+    if (read(file_i2c, *arr, length) != length)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
 		//ERROR HANDLING: i2c transaction failed
 		cout << "Failed to read from the i2c bus.\n" << endl;
@@ -48,16 +48,6 @@ unsigned char* i2c::read_register(int addr,unsigned char reg,int length)
 int i2c::write_register(int addr, unsigned char reg, int length, unsigned char bytes[])
 {
 
-	//int file_i2c;
-    /*
-	char *filename = (char*)"/dev/i2c-1";
-	if ((file_i2c = open(filename, O_RDWR)) < 0)
-	{
-		//ERROR HANDLING: you can check errno to see what went wrong
-		cout << "Failed to open the i2c bus" << endl;
-		return -1;
-	}
-    */
 	if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
 	{
 		cout << "Failed to acquire bus access and/or talk to slave.\n" << endl;
