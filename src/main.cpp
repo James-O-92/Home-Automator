@@ -48,6 +48,11 @@ void i2c_test(i2c* i2c_bus)
     i2c_bus->i2c_close();
 }
 
+void cleanUp(i2c* i2c_bus)
+{
+    i2c_bus->i2c_close();
+}
+
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -56,6 +61,8 @@ int main(int argc, char* argv[])
     unsigned char temp[2];
     unsigned short TEMP = 0;
     float calibrated = 0;
+    int addr = 0;
+    unsigned char *arr;
 
     i2c* i2c_bus = new i2c;
     i2c_test(i2c_bus);
@@ -81,6 +88,7 @@ int main(int argc, char* argv[])
     while(1)
 
     {
+        addr = 0x49;
 
         cout << "Writing to config" << endl;
         buffer[0] = 0b00000001;
@@ -186,6 +194,6 @@ int main(int argc, char* argv[])
 
 
     }
-    atexit (i2c_bus->i2c_close());
+    atexit(cleanUp(i2c_bus));
 }
 
