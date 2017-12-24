@@ -25,7 +25,8 @@ void DAC::updateVoltage(i2c* i2c_bus, float volts)
     if(volts <= 1)
     {
         voltage = volts*5;
-        unsigned short bin = (unsigned short)volts*4095;
+        volts = volts*4095;
+        unsigned short bin = (unsigned short)volts;
         cout << "bin = " << bin << endl;
         buffer[1] = (unsigned char)(bin & 0xff);
         bin = bin >> 8;
