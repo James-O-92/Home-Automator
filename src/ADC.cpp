@@ -2,8 +2,9 @@
 
 using namespace std;
 
-ADC::ADC(i2c* i2c_bus,int addr)
+ADC::ADC(i2c* _i2c_bus,int addr)
 {
+    i2c_bus = _i2c_bus;
     address = addr;
     //ctor
 }
