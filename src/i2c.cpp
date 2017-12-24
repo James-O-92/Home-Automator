@@ -1,6 +1,7 @@
 #include "i2c.h"
 #include <string>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -30,7 +31,7 @@ string i2c::read_register(int addr,unsigned char reg,int length)
 	{
 		cout << "Failed to acquire bus access and/or talk to slave.\n" << endl;
 		//ERROR HANDLING; you can check errno to see what went wrong
-		return buffer;
+
 	}
 
     if (read(file_i2c, buffer, length) != length)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
@@ -39,8 +40,9 @@ string i2c::read_register(int addr,unsigned char reg,int length)
 		cout << "Failed to read from the i2c bus.\n" << endl;
 	}
 
-	output = (string)buffer[0];
-	output += (string)buffer[1];
+	ostringstream os;
+    os << buffer[0];
+    output = os.str(); // str is what you want.
 
 	return output;
 }
