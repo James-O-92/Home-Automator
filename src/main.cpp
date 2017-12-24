@@ -14,43 +14,6 @@
 #include "PT1000.h"
 #include <stdlib.h>     /* atexit */
 
-void i2c_test(i2c* i2c_bus)
-{
-    cout << "i2c_test" << endl;
-    unsigned char reg = 0x01;
-    int addr = 0x49;
-    unsigned char *arr;
-    unsigned char buffer[60] = {0};
-
-    cout << "initializing i2c" << endl;
-    i2c_bus->init("/dev/i2c-1");
-
-    cout << "writing to config" << endl;
-    buffer[0] = 0b00000001;
-    buffer[1] = 0b10000100;
-	buffer[2] = 0b10000011;
-    i2c_bus->write_register(addr,0x01,3,buffer);
-
-    buffer[0] = 0x00;
-    cout << "writing register addr pointer i2c" << endl;
-    i2c_bus->write_register(addr,0x01,1,buffer);
-
-    arr = i2c_bus->read_register(addr,0x01,2);
-
-    cout << "-- i2c OUTPUT BUFFER --" << endl;
-
-    for(int i = 0; i < 2; i++)
-    {
-        if(*arr != '\0')
-        {
-            printf("0x%X ", *(arr + i));
-        }
-    }
-    cout << endl << "--------- END ---------" << endl;
-
-    i2c_bus->i2c_close();
-}
-
 using namespace std;
 
 int main(int argc, char* argv[])
