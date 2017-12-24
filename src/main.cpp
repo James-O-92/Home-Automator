@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
     {
         pt1000->updateTemperature();
         cout << "Voltage " << (ADS1015->getVoltage()) << endl;
-        cout << "Temperature" << (pt1000->getTemperature()) << endl << endl;
+        cout << "Temperature " << (pt1000->getTemperature()) << endl << endl;
 
 
         if(pt1000->getTemperature() <= sp1)
