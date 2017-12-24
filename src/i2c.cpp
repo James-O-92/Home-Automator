@@ -13,7 +13,7 @@ void i2c::init(string file)
 	{
 		//ERROR HANDLING: you can check errno to see what went wrong
 		cout << "Failed to open the i2c bus" << endl;
-		return -1;
+
 	}
 
 
