@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 
         buf[1] = pt1000->getTemperature();
 
-        u = pid->generateOutput(buf,setpoint,0.5)
+        u = pid->generateOutput(buf,setpoint,0.5);
 
         cout << "Output " << u << endl;
 
