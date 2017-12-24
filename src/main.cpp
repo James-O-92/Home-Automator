@@ -48,11 +48,6 @@ void i2c_test(i2c* i2c_bus)
     i2c_bus->i2c_close();
 }
 
-void cleanUp(i2c* i2c_bus)
-{
-    i2c_bus->i2c_close();
-}
-
 using namespace std;
 
 int main(int argc, char* argv[])

@@ -20,7 +20,7 @@ void i2c::init(string file)
 
 }
 
-void i2c::i2c_close()
+static void i2c::i2c_close()
 {
     close(file_i2c);
 }
