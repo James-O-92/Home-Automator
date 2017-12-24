@@ -21,16 +21,17 @@ void DAC::updateVoltage(i2c* i2c_bus, float volts)
     i2c_bus->init("/dev/i2c-1");
 
     volts = volts/5;
-    if(volts < 1)
+    cout << "%V = " << volts << endl;
+    if(volts <= 1)
     {
         voltage = volts*5;
         unsigned short bin = (unsigned short)volts*4095;
-        buffer[1] = (unsigned char)bin;
+        buffer[1] = (unsigned char)(bin & 0xff);
         bin = bin >> 8;
         buffer[0] = bin;
     }
 
-    printf("voltage: %f, buf[0]: 0x%X, buf[1]: 0x%X",voltage,buffer[0],buffer[1]);
+    printf("voltage: %f, buf[0]: 0x%X, buf[1]: 0x%X\n",voltage,buffer[0],buffer[1]);
     i2c_bus->write_register(address,0x01,2,buffer);
 
 }
