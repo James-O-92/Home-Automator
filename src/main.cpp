@@ -62,8 +62,8 @@ int main(int argc, char* argv[])
 
     i2c* i2c_bus = new i2c;
     ADC* ADS1015 = new ADC(0x49);
-    ADS1015->updateVoltage();
-    cout << ADS1015->getVoltage(); << endl;
+    ADS1015->updateVoltage(i2c_bus);
+    cout << ADS1015->getVoltage() << endl;
 
 	float sp1 = 0;
     float sp2 = 0;
