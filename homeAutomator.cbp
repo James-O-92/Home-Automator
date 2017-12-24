@@ -125,8 +125,10 @@
 		<Unit filename="examples/i2c_DAC_ON.cpp" />
 		<Unit filename="examples/i2c_READ_ADC.cpp" />
 		<Unit filename="include/ADC.h" />
+		<Unit filename="include/DAC.h" />
 		<Unit filename="include/i2c.h" />
 		<Unit filename="src/ADC.cpp" />
+		<Unit filename="src/DAC.cpp" />
 		<Unit filename="src/i2c.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
