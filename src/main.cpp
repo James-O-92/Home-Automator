@@ -29,9 +29,7 @@ int main(int argc, char* argv[])
     ADC* ADS1015 = new ADC(i2c_bus,0x49);
     DAC* MCP4725 = new DAC(i2c_bus,0x63);
     ADS1015->updateVoltage();
-    //cout << ADS1015->getVoltage() << endl;
     MCP4725->updateVoltage(3.5);
-
     PT1000* pt1000 = new PT1000(ADS1015,42.9487,-19.3551);
 
     pt1000->updateTemperature();
@@ -52,37 +50,24 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    cout << "initializing i2c" << endl;
-
     while(1)
 
     {
         pt1000->updateTemperature();
         cout << "Voltage " << (ADS1015->getVoltage()) << endl;
-        cout << "Temperature" << (pt1000->getTemperature()) << endl;
+        cout << "Temperature" << (pt1000->getTemperature()) << endl << endl;
 
-        /*
-        if(calibrated <= sp1)
+
+        if(pt1000->getTemperature() <= sp1)
         {
 
-            //write FFF to drive max output
-            buffer[0] = 0x0f;
-            buffer[1] = 0xff;
-
-            i2c_bus->write_register(addr,0x01,2,buffer);
+            MCP4725->updateVoltage(5.0);
             flag = 1;
 
-            cout << "DAC 5V" << endl;
-
-        }else if(calibrated >= sp2)
+        }else if(pt1000->getTemperature() >= sp2)
         {
 
-            //write FFF to drive max output
-            buffer[0] = 0x00;
-            buffer[1] = 0x00;
-
-            i2c_bus->write_register(addr,0x01,2,buffer);
-            cout << "DAC 0V" << endl;
+            MCP4725->updateVoltage(0.0);
 
             if(flag == 1)
             {
@@ -96,7 +81,7 @@ int main(int argc, char* argv[])
         }
 
         i2c_bus->i2c_close();
-        */
+
         this_thread::sleep_for (std::chrono::milliseconds(500));
 
 
@@ -104,4 +89,3 @@ int main(int argc, char* argv[])
     i2c_bus->i2c_close();
 
 }
-
