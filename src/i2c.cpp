@@ -29,8 +29,6 @@ unsigned char* i2c::read_register(int addr,unsigned char reg,int length)
 {
     unsigned char *arr;
 
-    cout << "read register called" << endl;
-
     if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
 	{
 		cout << "Failed to acquire bus access and/or talk to slave.\n" << endl;

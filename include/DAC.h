@@ -8,11 +8,12 @@ using namespace std;
 class DAC
 {
     public:
-        DAC(int addr);
+        DAC(i2c* i2c_bus, int addr);
         float getVoltage();
-        void updateVoltage(i2c* i2c_bus, float volts);
+        void updateVoltage(float volts);
 
     private:
+        i2c* i2c_bus;
         int address;
         float voltage;
 };
