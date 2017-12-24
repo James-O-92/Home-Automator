@@ -49,6 +49,7 @@ string i2c::read_register(int addr,unsigned char reg,int length)
     {
         if(buffer[i] != '\0')
         {
+            printf("ADC conversion register: 0x%X\n", buffer[i]);
             os << buffer[i];
             output = output + os.str(); // str is what you want.
         }
