@@ -1,5 +1,7 @@
 #include "ADC.h"
 
+using namespace std;
+
 ADC::ADC(int addr)
 {
     address = addr;

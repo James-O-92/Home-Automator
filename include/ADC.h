@@ -2,17 +2,18 @@
 #define ADC_H
 #include "i2c.h"
 
+using namespace std;
 
 class ADC
 {
     public:
-        ADC();
+        ADC(int addr);
         float getVoltage();
         void updateVoltage(i2c* i2c_bus);
 
     private:
         int address;
-        float voltage
+        float voltage;
 };
 
 #endif // ADC_H
