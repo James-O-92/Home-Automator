@@ -12,6 +12,7 @@ class i2c
 {
     public:
         void init(string file);
+        void i2c_close();
         string read_register(int address, unsigned char reg, int length);
         int write_register(int addr1, unsigned char reg, int length1, unsigned char bytes[]);
 

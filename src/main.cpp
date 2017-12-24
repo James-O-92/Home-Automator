@@ -14,25 +14,27 @@ void i2c_test(i2c* i2c_bus)
 {
     cout << "i2c_test" << endl;
     unsigned char reg = 0x01;
-    unsigned char **arr;
     int addr = 0x49;
-    i2c_bus->init("/dev/i2c-1");
-    unsigned char *buffer[60] = {0};
-    unsigned char* recv_buf;
-    //i2c_bus->read_register(addr,reg,3);
+    unsigned char buffer[60] = {0};
 
-    *buffer[0] = 0b00000001;
-    *buffer[1] = 0b10000100;
-	*buffer[2] = 0b10000011;
-    i2c_bus->write_register(addr,0x01,3,*buffer);
+    cout << "initializing i2c" << endl;
+    i2c_bus->init("/dev/i2c-1");
+
+    cout << "writing to config" << endl;
+    buffer[0] = 0b00000001;
+    buffer[1] = 0b10000100;
+	buffer[2] = 0b10000011;
+    i2c_bus->write_register(addr,0x01,3,buffer);
 
     buffer[0] = 0x00;
-    cout << "writing resister" << endl;
+    cout << "writing register addr pointer i2c" << endl;
     i2c_bus->write_register(addr,0x01,1,*buffer);
 
     string output = i2c_bus->read_register(addr,0x01,2);
 
     cout << "ADC: " << output << endl;
+
+    i2c_bus->i2c_close();
 }
 
 using namespace std;
@@ -67,7 +69,7 @@ int main(int argc, char* argv[])
     }
 
 
-
+    /*
     while(1){
 
 
@@ -221,6 +223,6 @@ int main(int argc, char* argv[])
 
 
     }
-
+    */
 }
 

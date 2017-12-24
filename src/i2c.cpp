@@ -20,6 +20,10 @@ void i2c::init(string file)
 
 }
 
+void i2c_close()
+{
+    close(file_i2c);
+}
 
 string i2c::read_register(int addr,unsigned char reg,int length)
 {
