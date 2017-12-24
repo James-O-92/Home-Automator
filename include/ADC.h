@@ -10,7 +10,7 @@ class ADC
     public:
         ADC(i2c* i2c_bus, int addr);
         float getVoltage();
-        void updateVoltage(i2c* i2c_bus);
+        void updateVoltage();
 
     private:
         i2c* i2c_bus;
