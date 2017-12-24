@@ -12,6 +12,7 @@
 #include "ADC.h"
 #include "DAC.h"
 #include "PT1000.h"
+#include "PID.h"
 #include <stdlib.h>     /* atexit */
 
 using namespace std;
@@ -19,6 +20,7 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     unsigned char buffer[60];
+    float buf[2];
     unsigned char temp[2];
     unsigned short TEMP = 0;
     float calibrated = 0;
@@ -31,12 +33,15 @@ int main(int argc, char* argv[])
     ADS1015->updateVoltage();
     MCP4725->updateVoltage(3.5);
     PT1000* pt1000 = new PT1000(ADS1015,42.9487,-19.3551);
+    PID* pid = new PID();
+    pid->tune(2.0,0.05,0.0);
 
     pt1000->updateTemperature();
     cout << "Temperature " << pt1000->getTemperature() << endl;
 
 	float sp1 = 0;
     float sp2 = 0;
+    float setpoint = 0;
     int wait = 0;
     int flag = 0;
 
@@ -50,6 +55,11 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    if(argc == 2)
+    {
+        setpoint = atof(argv[1]);
+    }
+
     while(1)
 
     {
@@ -57,7 +67,15 @@ int main(int argc, char* argv[])
         cout << "Voltage " << (ADS1015->getVoltage()) << endl;
         cout << "Temperature " << (pt1000->getTemperature()) << endl << endl;
 
+        buf[1] = pt1000->getTemperature();
 
+        MCP4725->updateVoltage(pid->generateOutput(buf,setpoint,0.5));
+
+        cout << "output " << MCP4725->getVoltage() << "V" << endl;
+
+        buf[0] = buf[1];
+
+        /*
         if(pt1000->getTemperature() <= sp1)
         {
 
@@ -81,7 +99,7 @@ int main(int argc, char* argv[])
         }
 
         i2c_bus->i2c_close();
-
+        */
         this_thread::sleep_for (std::chrono::milliseconds(500));
 
 
