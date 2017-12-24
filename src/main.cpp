@@ -50,14 +50,14 @@ int main(int argc, char* argv[])
         sp1 = atof(argv[1]);
         sp2 = atof(argv[2]);
         wait = atof(argv[3]);
-    }else
-    {
-        return -1;
     }
-
-    if(argc == 2)
+    else if(argc == 2)
     {
         setpoint = atof(argv[1]);
+    }
+    else
+    {
+        return -1;
     }
 
     while(1)
