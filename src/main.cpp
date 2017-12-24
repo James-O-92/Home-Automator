@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
     int wait = 0;
     int flag = 0;
 
-    if(argc == 3)
+    if(argc == 4)
     {
         sp1 = atof(argv[1]);
         sp2 = atof(argv[2]);
