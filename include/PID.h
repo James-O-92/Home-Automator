@@ -13,7 +13,7 @@ class PID
         float Kp;
         float Ki;
         float Kd;
-        float integral
+        float integral;
 };
 
 #endif // PID_H
