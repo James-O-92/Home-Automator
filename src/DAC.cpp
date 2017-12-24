@@ -22,7 +22,7 @@ void DAC::updateVoltage(float volts)
     i2c_bus->init("/dev/i2c-1");
 
     volts = volts/5;
-    cout << "%V = " << volts << endl;
+    //cout << "%V = " << volts << endl;
     if(volts <= 1)
     {
         voltage = volts*5;

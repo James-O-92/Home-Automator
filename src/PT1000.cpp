@@ -16,6 +16,7 @@ float PT1000::getTemperature()
 void PT1000::updateTemperature()
 {
     ADS1015->updateVoltage();
+    cout << "ADC voltage " << ADS1015->getVoltage();
     temperature = (ADS1015->getVoltage())*grad;
     temperature = temperature + y_intercept;
 }
