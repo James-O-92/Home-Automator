@@ -33,8 +33,6 @@ void i2c_test(i2c* i2c_bus)
 
     arr = i2c_bus->read_register(addr,0x01,2);
 
-    cout << "ADC: " << hex << output << endl;
-
     i2c_bus->i2c_close();
 }
 
