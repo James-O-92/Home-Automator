@@ -1,4 +1,5 @@
 #include "DAC.h"
+#include "i2c.h"
 
 using namespace std;
 
