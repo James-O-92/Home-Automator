@@ -14,19 +14,20 @@ void i2c_test(i2c* i2c_bus)
 {
     cout << "i2c_test" << endl;
     unsigned char reg = 0x01;
+    unsigned char **arr;
     int addr = 0x49;
     i2c_bus->init("/dev/i2c-1");
-    unsigned char buffer[60] = {0};
+    unsigned char *buffer[60] = {0};
     unsigned char* recv_buf;
     //i2c_bus->read_register(addr,reg,3);
 
-    buffer[0] = 0b00000001;
-    buffer[1] = 0b10000100;
-	buffer[2] = 0b10000011;
-    i2c_bus->write_register(addr,0x01,3,buffer);
+    *buffer[0] = 0b00000001;
+    *buffer[1] = 0b10000100;
+	*buffer[2] = 0b10000011;
+    i2c_bus->write_register(addr,0x01,3,*buffer);
 
     buffer[0] = 0x00;
-    i2c_bus->write_register(addr,0x01,1,buffer);
+    i2c_bus->write_register(addr,0x01,1,*buffer);
 
     i2c_bus->read_register(addr,0x01,2,&buffer);
 }
