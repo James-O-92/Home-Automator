@@ -7,140 +7,85 @@
 #include <iomanip>
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
+#include <string.h>
+#include "i2c.h"
+#include "ADC.h"
+#include "DAC.h"
+#include "PT1000.h"
+#include <stdlib.h>     /* atexit */
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-    int temp = 0;
+    unsigned char buffer[60];
+    unsigned char temp[2];
+    unsigned short TEMP = 0;
+    float calibrated = 0;
+    int addr = 0;
+    unsigned char *arr;
 
-    while(1){
+    i2c* i2c_bus = new i2c;
+    ADC* ADS1015 = new ADC(i2c_bus,0x49);
+    DAC* MCP4725 = new DAC(i2c_bus,0x63);
+    ADS1015->updateVoltage();
+    MCP4725->updateVoltage(3.5);
+    PT1000* pt1000 = new PT1000(ADS1015,42.9487,-19.3551);
 
-	int file_i2c;
-	int length;
-	unsigned char buffer[60] = {0};
+    pt1000->updateTemperature();
+    cout << "Temperature " << pt1000->getTemperature() << endl;
 
+	float sp1 = 0;
+    float sp2 = 0;
+    int wait = 0;
+    int flag = 0;
 
-	//----- OPEN THE I2C BUS -----
-	char *filename = (char*)"/dev/i2c-1";
-	if ((file_i2c = open(filename, O_RDWR)) < 0)
-	{
-		//ERROR HANDLING: you can check errno to see what went wrong
-		cout << "Failed to open the i2c bus" << endl;
-		return -1;
-	}
-
-	int addr = 0x49;          //<<<<<The I2C address of the slave
-	if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
-	{
-		cout << "Failed to acquire bus access and/or talk to slave.\n" << endl;
-		//ERROR HANDLING; you can check errno to see what went wrong
-		return -2;
-	}
-
-
-    //write to config register
-    buffer[0] = 0b00000001;
-    buffer[1] = 0b10000100;
-	buffer[2] = 0b10000011;
-
-	length = 3;			//<<< Number of bytes to write
-	if (write(file_i2c, buffer, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
-	{
-		// ERROR HANDLING: i2c transaction failed
-		cout << "Failed to write to the i2c bus.\n" << endl;
-	}
-	else
+    if(argc == 4)
     {
-        printf("wrote to config register: 0x%X 0x%X 0x%X\n", buffer[0], buffer[1], buffer[2]);
-	}
-
-    //----- write to address pointer register -----
-    buffer[0] = 0x00;
-
-	length = 1;			//<<< Number of bytes to read
-	if (write(file_i2c, buffer, length) != length)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
-	{
-		//ERROR HANDLING: i2c transaction failed
-		cout << "Failed to write to the i2c bus.\n" << endl;
-	}
-	else
-	{
-		printf("wrote to addr pointer register: 0x%X\n", buffer[0]);
-		//cout << "Data read: " << hex(buffer[0]) << endl;
-	}
-
-    //read conversion register
-	buffer[0] = 0x00;
-    buffer[1] = 0x00;
-
-	length = 2;			//<<< Number of bytes to read
-	if (read(file_i2c, buffer, length) != length)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
-	{
-		//ERROR HANDLING: i2c transaction failed
-		cout << "Failed to read from the i2c bus.\n" << endl;
-	}
-	else
-	{
-		printf("ADC conversion register: 0x%X 0x%X\n\n\n", buffer[0], buffer[1]);
-		//cout << "Data read: " << hex(buffer[0]) << endl;
-	}
-
-	temp = buffer[0];
-	if(temp <= 0x6C)
+        sp1 = atof(argv[1]);
+        sp2 = atof(argv[2]);
+        wait = atof(argv[3]);
+    }else
     {
-        int addr = 0x63;          //<<<<<The I2C address of the slave
-        if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
-        {
-            cout << "Failed to acquire bus access and/or talk to slave.\n" << endl;
-            //ERROR HANDLING; you can check errno to see what went wrong
-            return -2;
-        }
-
-        //write FFF to drive max output
-        buffer[0] = 0x0f;
-        buffer[1] = 0xff;
-
-        length = 2;			//<<< Number of bytes to write
-        if (write(file_i2c, buffer, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
-        {
-            // ERROR HANDLING: i2c transaction failed
-            cout << "Failed to write to the i2c bus.\n" << endl;
-        }
-        else
-        {
-        cout << "DAC output 5V" << endl;
-        }
-    }else if(temp >= 0x6D)
-    {
-         int addr = 0x63;          //<<<<<The I2C address of the slave
-        if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
-        {
-            cout << "Failed to acquire bus access and/or talk to slave.\n" << endl;
-            //ERROR HANDLING; you can check errno to see what went wrong
-            return -2;
-        }
-
-        //write FFF to drive max output
-        buffer[0] = 0x00;
-        buffer[1] = 0x00;
-
-        length = 2;			//<<< Number of bytes to write
-        if (write(file_i2c, buffer, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
-        {
-            // ERROR HANDLING: i2c transaction failed
-            cout << "Failed to write to the i2c bus.\n" << endl;
-        }
-        else
-        {
-        cout << "DAC output 0V" << endl;
-        }
+        return -1;
     }
 
+    while(1)
 
-    this_thread::sleep_for (std::chrono::seconds(5));
+    {
+        pt1000->updateTemperature();
+        cout << "Voltage " << (ADS1015->getVoltage()) << endl;
+        cout << "Temperature " << (pt1000->getTemperature()) << endl << endl;
+
+
+        if(pt1000->getTemperature() <= sp1)
+        {
+
+            MCP4725->updateVoltage(5.0);
+            flag = 1;
+
+        }else if(pt1000->getTemperature() >= sp2)
+        {
+
+            MCP4725->updateVoltage(0.0);
+
+            if(flag == 1)
+            {
+                flag = 0;
+                cout << "cool down..." << endl;
+                this_thread::sleep_for (std::chrono::seconds(wait));
+            }
+        } else
+        {
+            cout << endl;
+        }
+
+        i2c_bus->i2c_close();
+
+        this_thread::sleep_for (std::chrono::milliseconds(500));
 
 
     }
+    i2c_bus->i2c_close();
+
 }
-
