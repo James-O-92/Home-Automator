@@ -8,19 +8,19 @@ PT1000::PT1000(ADC *_ADC,float _m, float _c)
     //ctor
 }
 
-float getTemperature()
+float PT1000::getTemperature()
 {
     return temperature;
 }
 
-void updateTemperature()
+void PT1000::updateTemperature()
 {
     ADS1015->updateVoltage();
     temperature = (ADS1015->getVoltage())*grad;
     temperature = temperature + y_intercept;
 }
 
-void calibrate(float _grad, float _y_intercept)
+void PT1000::calibrate(float _grad, float _y_intercept)
 {
     grad = _grad;
     y_intercept = _y_intercept;
