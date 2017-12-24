@@ -10,6 +10,7 @@
 #include <string.h>
 #include "i2c.h"
 #include "ADC.h"
+#include "DAC.h"
 #include <stdlib.h>     /* atexit */
 
 void i2c_test(i2c* i2c_bus)
@@ -62,8 +63,10 @@ int main(int argc, char* argv[])
 
     i2c* i2c_bus = new i2c;
     ADC* ADS1015 = new ADC(0x49);
+    DAC* MCP4725 = new DAC(0x63);
     ADS1015->updateVoltage(i2c_bus);
     cout << ADS1015->getVoltage() << endl;
+    MCP4725->updateVoltage(3.5);
 
 	float sp1 = 0;
     float sp2 = 0;
