@@ -28,7 +28,7 @@ void i2c_test(i2c* i2c_bus)
 
     buffer[0] = 0x00;
     cout << "writing register addr pointer i2c" << endl;
-    i2c_bus->write_register(addr,0x01,1,*buffer);
+    i2c_bus->write_register(addr,0x01,1,buffer);
 
     string output = i2c_bus->read_register(addr,0x01,2);
 
