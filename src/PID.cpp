@@ -18,11 +18,14 @@ void PID::tune(float _Kp, float _Ki, float _Kd)
 
 float PID::generateOutput(float buffer[], float setpoint, float timeStep)
 {
+    float error[2];
+    error[0] = setpoint - buffer[0];
+    error[1] = setpoint - buffer[1];
     float output = 0;
-    output = (setpoint - buffer[0])*Kp;
-    output = output + Kd*((buffer[0] - buffer[1])/timeStep);
+    output = (error[0])*Kp;
+    output = output + Kd*((error[0] - error[1])/timeStep);
 
-    integral = integral + ((buffer[1] + buffer[0])/2)*timeStep;
+    integral = integral + Ki*((error[1] + error[0])/2)*timeStep;
 
     cout << "Integral " << integral << endl;
 

@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
     MCP4725->updateVoltage(3.5);
     PT1000* pt1000 = new PT1000(ADS1015,42.9487,-19.3551);
     PID* pid = new PID();
-    pid->tune(0.005,0.00005,0.0);
+    pid->tune(0.0005,0.00005,0.0);
     pt1000->updateTemperature();
     cout << "Temperature " << pt1000->getTemperature() << endl;
 
@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
         cout << "Voltage " << (ADS1015->getVoltage()) << endl;
         cout << "Temperature " << (pt1000->getTemperature()) << endl << endl;
 
-        buf[1] = pt1000->getTemperature();
+        buf[0] = pt1000->getTemperature();
 
         u = pid->generateOutput(buf,setpoint,0.5);
 
@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
 
         cout << "output " << MCP4725->getVoltage() << "V" << endl;
 
-        buf[0] = buf[1];
+        buf[1] = buf[0];
 
         /*
         if(pt1000->getTemperature() <= sp1)
