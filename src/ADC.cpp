@@ -47,9 +47,9 @@ void ADC::updateVoltage(i2c* i2c_bus)
     i2c_bus->i2c_close();
 
     unsigned short prcnt = 0;
-    prcnt = (unsigned short) *arr[0];
+    prcnt = (unsigned short) *arr;
     prcnt = prcnt << 8;
-    prcnt = prcnt + (unsigned short) *arr[1];
+    prcnt = prcnt + (unsigned short) *(arr + 1);
 
     float Prcnt = (float)prcnt;
     Prcnt = Prcnt/65535;
