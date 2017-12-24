@@ -21,6 +21,8 @@ float PID::generateOutput(float buffer[], float setpoint, float timeStep)
 
     integral = integral + ((buffer[1] + buffer[0])/2)*timeStep;
 
+    cout << "Integral " << integral << endl;
+
     output = output + (Kp*integral);
 
     return output;
