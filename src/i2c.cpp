@@ -39,10 +39,12 @@ string i2c::read_register(int addr,unsigned char reg,int length)
 		//ERROR HANDLING: i2c transaction failed
 		cout << "Failed to read from the i2c bus.\n" << endl;
 	}
-
-	ostringstream os;
-    os << buffer[0];
-    output = os.str(); // str is what you want.
+    if(buffer[0] != '\0')
+    {
+        ostringstream os;
+        os << buffer[0];
+        output = os.str(); // str is what you want.
+    }
 
 	return output;
 }
