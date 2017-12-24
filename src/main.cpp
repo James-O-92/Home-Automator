@@ -58,8 +58,8 @@ int main(int argc, char* argv[])
 
     {
         pt1000->updateTemperature();
-        cout << "Voltage " << ADS1015->getVoltage() << endl;
-        cout << "Temperature" << pt1000->getTemperature() << end;
+        cout << "Voltage " << (ADS1015->getVoltage()) << endl;
+        cout << "Temperature" << (pt1000->getTemperature()) << end;
 
         /*
         if(calibrated <= sp1)
