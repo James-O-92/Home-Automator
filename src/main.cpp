@@ -96,8 +96,9 @@ int main(int argc, char* argv[])
         }
 
         i2c_bus->i2c_close();
-        this_thread::sleep_for (std::chrono::milliseconds(500));
         */
+        this_thread::sleep_for (std::chrono::milliseconds(500));
+
 
     }
     i2c_bus->i2c_close();
