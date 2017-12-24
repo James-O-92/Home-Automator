@@ -13,7 +13,7 @@ float DAC::getVoltage()
     return voltage;
 }
 
-void DAC::updateVoltage(i2c* i2c_bus, float volts);
+void DAC::updateVoltage(i2c* i2c_bus, float volts)
 {
     unsigned char buffer[2];
 
