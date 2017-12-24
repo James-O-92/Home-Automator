@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
 
         arr = i2c_bus->read_register(addr,0x01,2);
 
-        i2c_bus->i2c_close();
+
 
         cout << endl << "-- i2c OUTPUT BUFFER --" << endl;
 
@@ -111,6 +111,7 @@ int main(int argc, char* argv[])
         }
         cout << endl << "--------- END ---------" << endl;
 
+        //temperature conversion
         TEMP = 0;
         TEMP = (unsigned short) temp[0];
         TEMP = TEMP << 8;
@@ -122,75 +123,46 @@ int main(int argc, char* argv[])
 
         printf("Temp: %f degrees\n",calibrated);
 
+        addr = 0x63;          //<<<<<The I2C address of the slave
 
-        //temperature conversion
-
-        /*
         if(calibrated <= sp1)
         {
-            int addr = 0x63;          //<<<<<The I2C address of the slave
-            if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
-            {
-                cout << "Failed to acquire bus access and/or talk to slave.\n" << endl;
-                //ERROR HANDLING; you can check errno to see what went wrong
-                return -2;
-            }
 
             //write FFF to drive max output
             buffer[0] = 0x0f;
             buffer[1] = 0xff;
 
             length = 2;			//<<< Number of bytes to write
-            if (write(file_i2c, buffer, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
-            {
-                // ERROR HANDLING: i2c transaction failed
-                cout << "Failed to write to the i2c bus.\n" << endl;
-            }
-            else
-            {
-            cout << "DAC output 5V" << endl << endl;
+            i2c_bus->write_register(addr,0x01,1,buffer);
             flag = 1;
-            }
+
         }else if(calibrated >= sp2)
         {
-             int addr = 0x63;          //<<<<<The I2C address of the slave
-            if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
-            {
-                cout << "Failed to acquire bus access and/or talk to slave.\n" << endl;
-                //ERROR HANDLING; you can check errno to see what went wrong
-                return -2;
-            }
 
             //write FFF to drive max output
             buffer[0] = 0x00;
             buffer[1] = 0x00;
 
             length = 2;			//<<< Number of bytes to write
-            if (write(file_i2c, buffer, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
-            {
-                // ERROR HANDLING: i2c transaction failed
-                cout << "Failed to write to the i2c bus.\n" << endl;
-            }
-            else
-            {
-            cout << "DAC output 0V" << endl << endl;
+            i2c_bus->write_register(addr,0x01,1,buffer);
+
             if(flag == 1)
             {
                 flag = 0;
                 cout << "cool down..." << endl;
                 this_thread::sleep_for (std::chrono::seconds(wait));
             }
-            }
         } else
         {
             cout << endl;
         }
 
-        */
+        i2c_bus->i2c_close();
         this_thread::sleep_for (std::chrono::milliseconds(500));
 
 
     }
+    i2c_bus->i2c_close();
 
 }
 
