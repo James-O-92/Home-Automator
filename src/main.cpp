@@ -132,8 +132,7 @@ int main(int argc, char* argv[])
             buffer[0] = 0x0f;
             buffer[1] = 0xff;
 
-            length = 2;			//<<< Number of bytes to write
-            i2c_bus->write_register(addr,0x01,1,buffer);
+            i2c_bus->write_register(addr,0x01,2,buffer);
             flag = 1;
 
         }else if(calibrated >= sp2)
@@ -143,8 +142,7 @@ int main(int argc, char* argv[])
             buffer[0] = 0x00;
             buffer[1] = 0x00;
 
-            length = 2;			//<<< Number of bytes to write
-            i2c_bus->write_register(addr,0x01,1,buffer);
+            i2c_bus->write_register(addr,0x01,2,buffer);
 
             if(flag == 1)
             {
