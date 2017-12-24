@@ -21,7 +21,7 @@ class i2c
         string i2c_File;
         char *filename;
         unsigned char buffer[100];
-        int file_i2c;
+        static int file_i2c;
 };
 
 #endif // I2C_H
