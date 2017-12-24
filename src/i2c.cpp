@@ -50,7 +50,7 @@ string i2c::read_register(int addr,unsigned char reg,int length)
         if(buffer[i] != '\0')
         {
             os << buffer[i];
-            output = os.str(); // str is what you want.
+            output = output + os.str(); // str is what you want.
         }
     }
 
