@@ -15,7 +15,7 @@ float ADC::getVoltage()
 
 void ADC::updateVoltage(i2c* i2c_bus)
 {
-    unsigned char **arr;
+    unsigned char *arr;
     unsigned char buffer[60];
 
     cout << "initializing i2c" << endl;
