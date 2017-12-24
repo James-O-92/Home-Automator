@@ -16,7 +16,7 @@ class PT1000
 
 
     private:
-        ADC* ADC;
+        ADC* ADS1015;
         float grad;
         float y_intercept;
         float temperature;

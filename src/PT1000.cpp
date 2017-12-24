@@ -2,7 +2,7 @@
 
 PT1000::PT1000(ADC *_ADC,float _m, float _c)
 {
-    ADC = _ADC;
+    ADS1015 = _ADC;
     grad = _m;
     y_intercept = _c;
     //ctor
@@ -15,8 +15,8 @@ float getTemperature()
 
 void updateTemperature()
 {
-    ADC->updateVoltage();
-    temperature = (ADC->getVoltage())*grad;
+    ADS1015->updateVoltage();
+    temperature = (ADS1015->getVoltage())*grad;
     temperature = temperature + y_intercept;
 }
 
