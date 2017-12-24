@@ -78,11 +78,11 @@ int main(int argc, char* argv[])
     }
 
     cout << "initializing i2c" << endl;
-    i2c_bus->init("/dev/i2c-1");
 
     while(1)
 
     {
+        i2c_bus->init("/dev/i2c-1");
         addr = 0x49;
 
         cout << "Writing to config" << endl;
@@ -96,6 +96,8 @@ int main(int argc, char* argv[])
         i2c_bus->write_register(addr,0x01,1,buffer);
 
         arr = i2c_bus->read_register(addr,0x01,2);
+
+        i2c_bus->i2c_close();
 
         cout << endl << "-- i2c OUTPUT BUFFER --" << endl;
 
@@ -189,6 +191,6 @@ int main(int argc, char* argv[])
 
 
     }
-    atexit(i2c_bus->i2c_close);
+
 }
 
