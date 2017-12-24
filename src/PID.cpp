@@ -13,7 +13,7 @@ void PID::tune(float _Kp, float _Ki, float _Kd)
     integral = 0;
 }
 
-float generateOutput(float buffer[], float setpoint, float timeStep)
+float PID::generateOutput(float buffer[], float setpoint, float timeStep)
 {
     float output = 0;
     output = (setpoint - buffer[0])*Kp;
