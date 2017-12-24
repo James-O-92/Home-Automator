@@ -33,6 +33,17 @@ void i2c_test(i2c* i2c_bus)
 
     arr = i2c_bus->read_register(addr,0x01,2);
 
+    cout << "-- i2c OUTPUT BUFFER --" << endl;
+
+    for(i = 0; i < 2; i++)
+    {
+        if(*arr != '\0')
+        {
+            printf("0x%X ", *(arr + i));
+        }
+    }
+    cout << endl << "--------- END ---------" << endl;
+
     i2c_bus->i2c_close();
 }
 
