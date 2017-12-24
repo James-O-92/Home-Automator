@@ -135,6 +135,8 @@ int main(int argc, char* argv[])
             i2c_bus->write_register(addr,0x01,2,buffer);
             flag = 1;
 
+            cout << "DAC 5V" << endl;
+
         }else if(calibrated >= sp2)
         {
 
@@ -143,6 +145,7 @@ int main(int argc, char* argv[])
             buffer[1] = 0x00;
 
             i2c_bus->write_register(addr,0x01,2,buffer);
+            cout << "DAC 0V" << endl;
 
             if(flag == 1)
             {
