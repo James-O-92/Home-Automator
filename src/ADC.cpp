@@ -46,6 +46,6 @@ void ADC::updateVoltage()
 
     voltage = Prcnt *5;
 
-    cout << "ADC voltage: " << voltage << endl;
+    //cout << "ADC voltage: " << voltage << endl;
 
 }

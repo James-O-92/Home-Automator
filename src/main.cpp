@@ -32,6 +32,11 @@ int main(int argc, char* argv[])
     cout << ADS1015->getVoltage() << endl;
     MCP4725->updateVoltage(3.5);
 
+    PT1000* pt1000 = new PT1000(ADS1015,0.033433,-17.58827);
+
+    pt1000->updateTemperature();
+    cout << "Temperature " << pt1000->getTemperature() << endl;
+
 	float sp1 = 0;
     float sp2 = 0;
     int wait = 0;
