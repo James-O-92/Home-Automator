@@ -1,5 +1,7 @@
 #ifndef DAC_H
 #define DAC_H
+#include <iostream>
+#include "i2c.h"
 
 using namespace std;
 
