@@ -57,49 +57,11 @@ int main(int argc, char* argv[])
     while(1)
 
     {
-        i2c_bus->init("/dev/i2c-1");
-        addr = 0x49;
+        pt1000->updateTemperature();
+        cout << "Voltage " << ADC->getVoltage() << endl;
+        cout << "Temperature" << pt1000->getTemperature() << end;
 
-        cout << "Writing to config" << endl;
-        buffer[0] = 0b00000001;
-        buffer[1] = 0b10000100;
-        buffer[2] = 0b10000011;
-        i2c_bus->write_register(addr,0x01,3,buffer);
-
-        cout << "writing register addr pointer i2c" << endl;
-        buffer[0] = 0x00;
-        i2c_bus->write_register(addr,0x01,1,buffer);
-
-        arr = i2c_bus->read_register(addr,0x01,2);
-
-
-
-        cout << endl << "-- i2c OUTPUT BUFFER --" << endl;
-
-        for(int i = 0; i < 2; i++)
-        {
-            if(*arr != '\0')
-            {
-                printf("0x%X ", *(arr + i));
-                temp[i] = *(arr + i);
-            }
-        }
-        cout << endl << "--------- END ---------" << endl;
-
-        //temperature conversion
-        TEMP = 0;
-        TEMP = (unsigned short) temp[0];
-        TEMP = TEMP << 8;
-        TEMP = TEMP + (unsigned short) temp[1];
-
-        calibrated = (float) TEMP;
-        calibrated = calibrated*0.0033433;
-        calibrated = calibrated - 17.58827;
-
-        printf("Temp: %f degrees\n",calibrated);
-
-        addr = 0x63;          //<<<<<The I2C address of the slave
-
+        /*
         if(calibrated <= sp1)
         {
 
@@ -135,7 +97,7 @@ int main(int argc, char* argv[])
 
         i2c_bus->i2c_close();
         this_thread::sleep_for (std::chrono::milliseconds(500));
-
+        */
 
     }
     i2c_bus->i2c_close();
