@@ -60,6 +60,9 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    buf[0] = pt1000->getTemperature();
+    buf[1] = pt1000->getTemperature();
+
     while(1)
 
     {
