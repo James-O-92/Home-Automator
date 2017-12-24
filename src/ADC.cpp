@@ -2,7 +2,7 @@
 
 using namespace std;
 
-ADC::ADC(int addr)
+ADC::ADC(i2c* i2c_bus,int addr)
 {
     address = addr;
     //ctor
@@ -13,7 +13,7 @@ float ADC::getVoltage()
     return voltage;
 }
 
-void ADC::updateVoltage(i2c* i2c_bus)
+void ADC::updateVoltage()
 {
     unsigned char *arr;
     unsigned char buffer[60];

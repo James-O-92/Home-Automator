@@ -8,11 +8,12 @@ using namespace std;
 class ADC
 {
     public:
-        ADC(int addr);
+        ADC(i2c* i2c_bus, int addr);
         float getVoltage();
         void updateVoltage(i2c* i2c_bus);
 
     private:
+        i2c* i2c_bus;
         int address;
         float voltage;
 };

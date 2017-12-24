@@ -3,8 +3,9 @@
 
 using namespace std;
 
-DAC::DAC(int addr)
+DAC::DAC(i2c* _i2c_bus,int addr)
 {
+    i2c_bus = _i2c_bus;
     address = addr;
 }
 
@@ -13,7 +14,7 @@ float DAC::getVoltage()
     return voltage;
 }
 
-void DAC::updateVoltage(i2c* i2c_bus, float volts)
+void DAC::updateVoltage(float volts)
 {
     unsigned char buffer[2];
 

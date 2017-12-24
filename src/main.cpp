@@ -11,6 +11,7 @@
 #include "i2c.h"
 #include "ADC.h"
 #include "DAC.h"
+#include "PT1000.h"
 #include <stdlib.h>     /* atexit */
 
 void i2c_test(i2c* i2c_bus)
@@ -62,11 +63,11 @@ int main(int argc, char* argv[])
     unsigned char *arr;
 
     i2c* i2c_bus = new i2c;
-    ADC* ADS1015 = new ADC(0x49);
-    DAC* MCP4725 = new DAC(0x63);
-    ADS1015->updateVoltage(i2c_bus);
+    ADC* ADS1015 = new ADC(i2c_bus,0x49);
+    DAC* MCP4725 = new DAC(i2c_bus,0x63);
+    ADS1015->updateVoltage();
     cout << ADS1015->getVoltage() << endl;
-    MCP4725->updateVoltage(i2c_bus,3.5);
+    MCP4725->updateVoltage(3.5);
 
 	float sp1 = 0;
     float sp2 = 0;
