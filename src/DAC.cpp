@@ -31,6 +31,6 @@ void DAC::updateVoltage(i2c* i2c_bus, float volts)
     }
 
     printf("voltage: %f, buf[0]: 0x%X, buf[1]: 0x%X",voltage,buf[0],buf[1]);
-    i2c_bus->write_register(addr,0x01,2,buffer);
+    i2c_bus->write_register(address,0x01,2,buffer);
 
 }
