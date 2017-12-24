@@ -27,7 +27,7 @@ void i2c::i2c_close()
 
 unsigned char* i2c::read_register(int addr,unsigned char reg,int length)
 {
-    char *arr;
+    unsigned char *arr;
 
     cout << "read register called" << endl;
 
