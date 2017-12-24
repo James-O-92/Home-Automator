@@ -20,6 +20,7 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     unsigned char buffer[60];
+    float u = 0;
     float buf[2];
     unsigned char temp[2];
     unsigned short TEMP = 0;
@@ -69,7 +70,20 @@ int main(int argc, char* argv[])
 
         buf[1] = pt1000->getTemperature();
 
-        MCP4725->updateVoltage(pid->generateOutput(buf,setpoint,0.5));
+        u = pid->generateOutput(buf,setpoint,0.5)
+
+        cout << "Output " << u << endl;
+
+        if(u > 5.0)
+        {
+            MCP4725->updateVoltage(5.0);
+        }else if (u < 0)
+        {
+            MCP4725->updateVoltage(0.0);
+        }else
+        {
+            MCP4725->updateVoltage(u);
+        }
 
         cout << "output " << MCP4725->getVoltage() << "V" << endl;
 
