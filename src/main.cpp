@@ -85,13 +85,13 @@ int main(int argc, char* argv[])
         buffer[0] = 0b00000001;
         buffer[1] = 0b10000100;
         buffer[2] = 0b10000011;
-        i2c_bus->write_register(addr,0x01,3,buffer);
+        i2c_bus.write_register(addr,0x01,3,buffer);
 
         cout << "writing register addr pointer i2c" << endl;
         buffer[0] = 0x00;
-        i2c_bus->write_register(addr,0x01,1,buffer);
+        i2c_bus.write_register(addr,0x01,1,buffer);
 
-        arr = i2c_bus->read_register(addr,0x01,2);
+        arr = i2c_bus.read_register(addr,0x01,2);
 
         cout << endl << "-- i2c OUTPUT BUFFER --" << endl;
 
@@ -185,6 +185,6 @@ int main(int argc, char* argv[])
 
 
     }
-    atexit (i2c_bus.i2c_close());
+    atexit (i2c_bus->i2c_close());
 }
 
