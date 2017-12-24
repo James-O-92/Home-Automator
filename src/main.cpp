@@ -194,6 +194,6 @@ int main(int argc, char* argv[])
 
 
     }
-    atexit(cleanUp(i2c_bus));
+    atexit(i2c_bus->i2c_close);
 }
 
