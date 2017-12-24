@@ -75,8 +75,8 @@ int main(int argc, char* argv[])
         u = pid->generateOutput(buf,setpoint,0.5);
 
         cout << "Output " << u << endl;
-        float U = u
-        U = U + 2.5
+        float U = u;
+        U = U + 2.5;
         if(U > 5.0)
         {
             MCP4725->updateVoltage(5.0);
