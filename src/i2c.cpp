@@ -25,9 +25,9 @@ void i2c::i2c_close()
     close(file_i2c);
 }
 
-string i2c::read_register(int addr,unsigned char reg,int length)
+unsigned char* i2c::read_register(int addr,unsigned char reg,int length)
 {
-    string output;
+    char *arr;
 
     cout << "read register called" << endl;
 
@@ -44,18 +44,8 @@ string i2c::read_register(int addr,unsigned char reg,int length)
 		cout << "Failed to read from the i2c bus.\n" << endl;
 	}
 
-	ostringstream os;
-	for(int i = 0; i< length; i++)
-    {
-        if(buffer[i] != '\0')
-        {
-            printf("ADC conversion register: 0x%X\n", buffer[i]);
-            os << buffer[i];
-            output = output + os.str(); // str is what you want.
-        }
-    }
-
-	return output;
+    arr = (unsigned char*)buffer;
+	return arr;
 }
 
 int i2c::write_register(int addr, unsigned char reg, int length, unsigned char bytes[])

@@ -15,6 +15,7 @@ void i2c_test(i2c* i2c_bus)
     cout << "i2c_test" << endl;
     unsigned char reg = 0x01;
     int addr = 0x49;
+    unsigned char *arr;
     unsigned char buffer[60] = {0};
 
     cout << "initializing i2c" << endl;
@@ -30,7 +31,7 @@ void i2c_test(i2c* i2c_bus)
     cout << "writing register addr pointer i2c" << endl;
     i2c_bus->write_register(addr,0x01,1,buffer);
 
-    string output = i2c_bus->read_register(addr,0x01,2);
+    arr = i2c_bus->read_register(addr,0x01,2);
 
     cout << "ADC: " << hex << output << endl;
 
