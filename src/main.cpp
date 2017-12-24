@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
     DAC* MCP4725 = new DAC(0x63);
     ADS1015->updateVoltage(i2c_bus);
     cout << ADS1015->getVoltage() << endl;
-    MCP4725->updateVoltage(3.5);
+    MCP4725->updateVoltage(i2c_bus,3.5);
 
 	float sp1 = 0;
     float sp2 = 0;
