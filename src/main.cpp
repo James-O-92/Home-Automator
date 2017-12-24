@@ -29,7 +29,9 @@ void i2c_test(i2c* i2c_bus)
     buffer[0] = 0x00;
     i2c_bus->write_register(addr,0x01,1,*buffer);
 
-    i2c_bus->read_register(addr,0x01,2,&buffer);
+    string output = i2c_bus->read_register(addr,0x01,2,);
+
+    cout "ADC: " << output << endl;
 }
 
 using namespace std;

@@ -20,8 +20,10 @@ void i2c::init(string file)
 }
 
 
-unsigned char* i2c::read_register(int addr,unsigned char reg,int length, unsigned char **arr)
+string i2c::read_register(int addr,unsigned char reg,int length)
 {
+    string output;
+
     cout << "read register called" << endl;
 
     if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
@@ -31,18 +33,16 @@ unsigned char* i2c::read_register(int addr,unsigned char reg,int length, unsigne
 		return buffer;
 	}
 
-    if (read(file_i2c, *arr, length) != length)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
+    if (read(file_i2c, buffer, length) != length)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
 		//ERROR HANDLING: i2c transaction failed
 		cout << "Failed to read from the i2c bus.\n" << endl;
 	}
-	else
-	{
-		//printf("ADC conversion register: 0x%X 0x%X\n", buffer[0], buffer[1]);
-		//cout << "Data read: " << hex(buffer[0]) << endl;
-	}
 
-	return buffer;
+	output = (string)buffer[0];
+	output += (string)buffer[1];
+
+	return output;
 }
 
 int i2c::write_register(int addr, unsigned char reg, int length, unsigned char bytes[])
