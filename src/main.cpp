@@ -35,7 +35,7 @@ void i2c_test(i2c* i2c_bus)
 
     cout << "-- i2c OUTPUT BUFFER --" << endl;
 
-    for(i = 0; i < 2; i++)
+    for(int i = 0; i < 2; i++)
     {
         if(*arr != '\0')
         {
