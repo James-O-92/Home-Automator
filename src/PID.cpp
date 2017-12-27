@@ -38,9 +38,9 @@ float PID::generateOutput(float buffer[], float setpoint, float timeStep)
     return output;
 }
 
-float PID::scaleOutput(float output)
+float PID::scaleOutput(float Output)
 {
-    float scaledOutput = ((scale_grad*output) + scale_Y_Int);
+    float scaledOutput = ((scale_grad*Output) + scale_Y_Int);
 
     if(scaledOutput > scale_upperBound)
     {
