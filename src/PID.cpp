@@ -25,7 +25,11 @@ float PID::generateOutput(float buffer[], float setpoint, float timeStep)
     output = (error[0])*Kp;
     output = output + Kd*((error[0] - error[1])/timeStep);
 
-    integral = integral + Ki*((error[1] + error[0])/2)*timeStep;
+    //wind up limiter
+    if ((scaledOutput <= scale_upperBound) && (scaledOutput >= scale_lowerBound))
+    {
+        integral = integral + Ki*((error[1] + error[0])/2)*timeStep;
+    }
 
     cout << "Integral " << integral << endl;
 
@@ -36,19 +40,19 @@ float PID::generateOutput(float buffer[], float setpoint, float timeStep)
 
 float PID::scaleOutput(float output)
 {
-    float OUTPUT = ((scale_grad*output) + scale_Y_Int);
+    float scaledOutput = ((scale_grad*output) + scale_Y_Int);
 
-    if(OUTPUT > scale_upperBound)
+    if(scaledOutput > scale_upperBound)
     {
         return scale_upperBound;
 
-    }else if(OUTPUT < scale_lowerBound)
+    }else if(scaledOutput < scale_lowerBound)
     {
         return scale_lowerBound;
 
     }else
     {
-        return OUTPUT;
+        return scaledOutput;
     }
 }
 

@@ -20,6 +20,8 @@ class PID
         float scale_Y_Int;
         float scale_upperBound;
         float scale_lowerBound;
+        float output;
+        float scaledOutput;
 
 };
 
