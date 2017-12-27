@@ -26,7 +26,7 @@ float PID::generateOutput(float buffer[], float setpoint, float timeStep)
     output = output + Kd*((error[0] - error[1])/timeStep);
 
     //wind up limiter
-    if ((scaledOutput <= scale_upperBound) && (scaledOutput >= scale_lowerBound))
+    if ((output < 10) && (output > -10))
     {
         integral = integral + Ki*((error[1] + error[0])/2)*timeStep;
     }
