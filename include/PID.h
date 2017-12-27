@@ -18,6 +18,9 @@ class PID
         float integral;
         float scale_grad;
         float scale_Y_Int;
+        float scale_upperBound;
+        float scale_lowerBound;
+
 };
 
 #endif // PID_H
