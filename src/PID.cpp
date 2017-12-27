@@ -33,3 +33,20 @@ float PID::generateOutput(float buffer[], float setpoint, float timeStep)
 
     return output;
 }
+
+float PID::scaleOutput(float output)
+{
+    
+    return (scale_grad*output) + scale_Y_int);
+    
+}
+
+void PID::setScaler(float grad, float y_int)
+{
+    scale_grad = grad;
+    scale_Y_Int = y_int;
+}
+    
+    
+    
+    
