@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
     //Controller
     PID* pid = new PID();
     pid->tune(1.5,0.05,0.0);
-    pid->setScaler(0.205,2.95,5.0,1.1);
+    pid->setScaler(0.205,2.95,5.0,1.2);
     pt1000->updateTemperature();
 
     if(argc == 2)
