@@ -14,10 +14,11 @@
 #include "PT1000.h"
 #include "PID.h"
 #include <stdlib.h>     /* atexit */
+#include <thread>
 
 using namespace std;
 
-int main(int argc, char* argv[])
+void controlLoopThread()
 {
     //variables
     float u = 0;
@@ -74,5 +75,23 @@ int main(int argc, char* argv[])
     }
 
     i2c_bus->i2c_close();
+}
+
+void serverLoopThread()
+{
+	while(1)
+	{
+		this_thread::sleep_for (std::chrono::milliseconds(500));
+		cout << "Server thread" << endl;
+	}
+}
+
+int main(int argc, char* argv[])
+{
+    thread cntrl(controlLoopThread, "starting control loop\n");
+    thread server(serverLoopThread, "starting server\n");
+    
+    cntrl.join();
+    server.join();
 
 }
