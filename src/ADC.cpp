@@ -19,21 +19,23 @@ void ADC::updateVoltage()
     unsigned char *arr;
     unsigned char buffer[60];
 
-    //cout << "initializing i2c" << endl;
+    //initializing i2c
     i2c_bus->init("/dev/i2c-1");
 
-    //cout << "writing to config" << endl;
+    //writing to ADS1015 config register
     buffer[0] = 0b00000001;
     buffer[1] = 0b10000100;
-	buffer[2] = 0b10000011;
+    buffer[2] = 0b10000011;
     i2c_bus->write_register(address,0x01,3,buffer);
 
+    //writing ADS1015 register addr pointer
     buffer[0] = 0x00;
-    //cout << "writing register addr pointer i2c" << endl;
     i2c_bus->write_register(address,0x01,1,buffer);
 
+    //reading ADS1015 conversion register
     arr = i2c_bus->read_register(address,0x01,2);
 
+    //closing i2c bus
     i2c_bus->i2c_close();
 
     unsigned short prcnt = 0;
@@ -45,7 +47,5 @@ void ADC::updateVoltage()
     Prcnt = Prcnt/65535;
 
     voltage = Prcnt *5;
-
-    //cout << "ADC voltage: " << voltage << endl;
 
 }
