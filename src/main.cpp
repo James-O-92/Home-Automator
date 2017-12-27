@@ -63,19 +63,7 @@ int main(int argc, char* argv[])
 
         buf[0] = pt1000->getTemperature();
 
-        u = pid->generateOutput(buf,setpoint,0.5);
-	u = pid->scaleOutput(u);
-	    
-        if(u > 5.0)
-        {
-            MCP4725->updateVoltage(5.0);
-        }else if (u < 0)
-        {
-            MCP4725->updateVoltage(0.0);
-        }else
-        {
-            MCP4725->updateVoltage(u);
-        }
+	MCP4725->updateVoltage(pid->scaleOutput(pid->generateOutput(buf,setpoint,0.5)));
 
         cout << "output " << MCP4725->getVoltage() << "V" << endl << endl;
 
@@ -84,6 +72,7 @@ int main(int argc, char* argv[])
         this_thread::sleep_for (std::chrono::milliseconds(500));
 
     }
+
     i2c_bus->i2c_close();
 
 }
