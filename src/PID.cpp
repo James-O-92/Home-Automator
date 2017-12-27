@@ -29,11 +29,11 @@ float PID::generateOutput(float buffer[], float setpoint, float timeStep)
     if ((output < 10) && (output > -10))
     {
         integral = integral + Ki*((error[1] + error[0])/2)*timeStep;
+        output = output + (integral);
     }
 
     cout << "Integral " << integral << endl;
 
-    output = output + (integral);
 
     return output;
 }
