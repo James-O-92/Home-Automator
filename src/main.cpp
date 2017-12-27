@@ -12,80 +12,67 @@
 #include "ADC.h"
 #include "DAC.h"
 #include "PT1000.h"
+#include "PID.h"
 #include <stdlib.h>     /* atexit */
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-    unsigned char buffer[60];
-    unsigned char temp[2];
-    unsigned short TEMP = 0;
-    float calibrated = 0;
-    int addr = 0;
-    unsigned char *arr;
+    //variables
+    float u = 0;
+    float buf[2];
+    float setpoint = 0;
 
+    //i2c BUS	
     i2c* i2c_bus = new i2c;
+	
+    //I/O interfaces
     ADC* ADS1015 = new ADC(i2c_bus,0x49);
     DAC* MCP4725 = new DAC(i2c_bus,0x63);
     ADS1015->updateVoltage();
-    MCP4725->updateVoltage(3.5);
+    MCP4725->updateVoltage(0.0);
+	
+    //sensor
     PT1000* pt1000 = new PT1000(ADS1015,42.9487,-19.3551);
 
+    //Controller
+    PID* pid = new PID();
+    pid->tune(0.05,0.005,0.0);
+    pid->setScaler(0.205,2.95);
     pt1000->updateTemperature();
-    cout << "Temperature " << pt1000->getTemperature() << endl;
 
-	float sp1 = 0;
-    float sp2 = 0;
-    int wait = 0;
-    int flag = 0;
-
-    if(argc == 4)
+    if(argc == 2)
     {
-        sp1 = atof(argv[1]);
-        sp2 = atof(argv[2]);
-        wait = atof(argv[3]);
-    }else
+        setpoint = atof(argv[1]);
+    }
+    else
     {
         return -1;
     }
+
+    buf[0] = pt1000->getTemperature();
+    buf[1] = pt1000->getTemperature();
 
     while(1)
 
     {
         pt1000->updateTemperature();
-        cout << "Voltage " << (ADS1015->getVoltage()) << endl;
-        cout << "Temperature " << (pt1000->getTemperature()) << endl << endl;
+        cout << "Input Voltage " << (ADS1015->getVoltage()) << "V" << endl;
+        cout << "Temperature " << (pt1000->getTemperature()) << endl;
 
+        buf[0] = pt1000->getTemperature();
 
-        if(pt1000->getTemperature() <= sp1)
-        {
+	MCP4725->updateVoltage(pid->scaleOutput(pid->generateOutput(buf,setpoint,0.5)));
 
-            MCP4725->updateVoltage(5.0);
-            flag = 1;
+        cout << "output " << MCP4725->getVoltage() << "V" << endl << endl;
 
-        }else if(pt1000->getTemperature() >= sp2)
-        {
-
-            MCP4725->updateVoltage(0.0);
-
-            if(flag == 1)
-            {
-                flag = 0;
-                cout << "cool down..." << endl;
-                this_thread::sleep_for (std::chrono::seconds(wait));
-            }
-        } else
-        {
-            cout << endl;
-        }
-
-        i2c_bus->i2c_close();
+        buf[1] = buf[0];
 
         this_thread::sleep_for (std::chrono::milliseconds(500));
 
-
     }
+
     i2c_bus->i2c_close();
 
 }
