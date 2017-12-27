@@ -24,22 +24,22 @@ int main(int argc, char* argv[])
     float buf[2];
     float setpoint = 0;
 
-    //i2c BUS	
+    //i2c BUS
     i2c* i2c_bus = new i2c;
-	
+
     //I/O interfaces
     ADC* ADS1015 = new ADC(i2c_bus,0x49);
     DAC* MCP4725 = new DAC(i2c_bus,0x63);
     ADS1015->updateVoltage();
     MCP4725->updateVoltage(0.0);
-	
+
     //sensor
     PT1000* pt1000 = new PT1000(ADS1015,42.9487,-19.3551);
 
     //Controller
     PID* pid = new PID();
     pid->tune(0.05,0.005,0.0);
-    pid->setScaler(0.205,2.95);
+    pid->setScaler(0.205,2.95,5.0,0.9);
     pt1000->updateTemperature();
 
     if(argc == 2)
