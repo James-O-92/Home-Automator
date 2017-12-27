@@ -9,7 +9,7 @@ class PID
         void tune(float _Kp, float _Ki, float _Kd);
         float generateOutput(float buffer[], float setpoint, float timeStep);
         float scaleOutput(float output);
-        float setScaler(float grad, float y_int);
+        void setScaler(float grad, float y_int);
 
     private:
         float Kp;
