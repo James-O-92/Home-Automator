@@ -126,9 +126,13 @@
 		<Unit filename="examples/i2c_READ_ADC.cpp" />
 		<Unit filename="include/ADC.h" />
 		<Unit filename="include/DAC.h" />
+		<Unit filename="include/PID.h" />
+		<Unit filename="include/PT1000.h" />
 		<Unit filename="include/i2c.h" />
 		<Unit filename="src/ADC.cpp" />
 		<Unit filename="src/DAC.cpp" />
+		<Unit filename="src/PID.cpp" />
+		<Unit filename="src/PT1000.cpp" />
 		<Unit filename="src/i2c.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
