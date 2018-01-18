@@ -14,4 +14,4 @@ include_directories(include)
 file(GLOB SOURCES "src/*.cpp")
 
 add_executable(homeAutomator ${SOURCES})
-target_link_libraries (main ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (homeAutomator ${CMAKE_THREAD_LIBS_INIT})
