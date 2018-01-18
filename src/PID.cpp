@@ -36,8 +36,10 @@ float PID::generateOutput(float buffer[], float setpoint, float timeStep)
 
 float PID::scaleOutput(float output)
 {
+    output = output*scale_grad;
+    output = output + scale_Y_Int;
 
-    return (scale_grad*output) + scale_Y_Int);
+    return output;
 
 }
 
