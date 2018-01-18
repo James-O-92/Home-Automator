@@ -18,22 +18,22 @@
 
 using namespace std;
 
-void controlLoopThread()
+void controlLoopThread(int argc, char* argv[])
 {
     //variables
     float u = 0;
     float buf[2];
     float setpoint = 0;
 
-    //i2c BUS	
+    //i2c BUS
     i2c* i2c_bus = new i2c;
-	
+
     //I/O interfaces
     ADC* ADS1015 = new ADC(i2c_bus,0x49);
     DAC* MCP4725 = new DAC(i2c_bus,0x63);
     ADS1015->updateVoltage();
     MCP4725->updateVoltage(0.0);
-	
+
     //sensor
     PT1000* pt1000 = new PT1000(ADS1015,42.9487,-19.3551);
 
@@ -88,9 +88,11 @@ void serverLoopThread()
 
 int main(int argc, char* argv[])
 {
-    thread cntrl(controlLoopThread, "starting control loop\n");
-    thread server(serverLoopThread, "starting server\n");
-    
+    cout << "starting control thread..." << endl;
+    thread cntrl(controlLoopThread, argc, argv);
+    cout << "starting server thread..." << endl;
+    thread server(serverLoopThread);
+
     cntrl.join();
     server.join();
 
