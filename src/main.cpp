@@ -7,140 +7,93 @@
 #include <iomanip>
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
+#include <string.h>
+#include "i2c.h"
+#include "ADC.h"
+#include "DAC.h"
+#include "PT1000.h"
+#include "PID.h"
+#include <stdlib.h>     /* atexit */
+#include <thread>
 
 using namespace std;
 
-int main(int argc, char* argv[])
+int controlLoopThread(int argc, char* argv[])
 {
-    int temp = 0;
+    //variables
+    float u = 0;
+    float buf[2];
+    float setpoint = 0;
 
-    while(1){
+    //i2c BUS
+    i2c* i2c_bus = new i2c;
 
-	int file_i2c;
-	int length;
-	unsigned char buffer[60] = {0};
+    //I/O interfaces
+    ADC* ADS1015 = new ADC(i2c_bus,0x49);
+    DAC* MCP4725 = new DAC(i2c_bus,0x63);
+    ADS1015->updateVoltage();
+    MCP4725->updateVoltage(0.0);
 
+    //sensor
+    PT1000* pt1000 = new PT1000(ADS1015,42.9487,-19.3551);
 
-	//----- OPEN THE I2C BUS -----
-	char *filename = (char*)"/dev/i2c-1";
-	if ((file_i2c = open(filename, O_RDWR)) < 0)
-	{
-		//ERROR HANDLING: you can check errno to see what went wrong
-		cout << "Failed to open the i2c bus" << endl;
-		return -1;
-	}
+    //Controller
+    PID* pid = new PID();
+    pid->tune(0.05,0.005,0.0);
+    pid->setScaler(0.205,2.95);
+    pt1000->updateTemperature();
 
-	int addr = 0x49;          //<<<<<The I2C address of the slave
-	if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
-	{
-		cout << "Failed to acquire bus access and/or talk to slave.\n" << endl;
-		//ERROR HANDLING; you can check errno to see what went wrong
-		return -2;
-	}
-
-
-    //write to config register
-    buffer[0] = 0b00000001;
-    buffer[1] = 0b10000100;
-	buffer[2] = 0b10000011;
-
-	length = 3;			//<<< Number of bytes to write
-	if (write(file_i2c, buffer, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
-	{
-		// ERROR HANDLING: i2c transaction failed
-		cout << "Failed to write to the i2c bus.\n" << endl;
-	}
-	else
+    if(argc == 2)
     {
-        printf("wrote to config register: 0x%X 0x%X 0x%X\n", buffer[0], buffer[1], buffer[2]);
-	}
-
-    //----- write to address pointer register -----
-    buffer[0] = 0x00;
-
-	length = 1;			//<<< Number of bytes to read
-	if (write(file_i2c, buffer, length) != length)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
-	{
-		//ERROR HANDLING: i2c transaction failed
-		cout << "Failed to write to the i2c bus.\n" << endl;
-	}
-	else
-	{
-		printf("wrote to addr pointer register: 0x%X\n", buffer[0]);
-		//cout << "Data read: " << hex(buffer[0]) << endl;
-	}
-
-    //read conversion register
-	buffer[0] = 0x00;
-    buffer[1] = 0x00;
-
-	length = 2;			//<<< Number of bytes to read
-	if (read(file_i2c, buffer, length) != length)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
-	{
-		//ERROR HANDLING: i2c transaction failed
-		cout << "Failed to read from the i2c bus.\n" << endl;
-	}
-	else
-	{
-		printf("ADC conversion register: 0x%X 0x%X\n\n\n", buffer[0], buffer[1]);
-		//cout << "Data read: " << hex(buffer[0]) << endl;
-	}
-
-	temp = buffer[0];
-	if(temp <= 0x6C)
+        setpoint = atof(argv[1]);
+    }
+    else
     {
-        int addr = 0x63;          //<<<<<The I2C address of the slave
-        if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
-        {
-            cout << "Failed to acquire bus access and/or talk to slave.\n" << endl;
-            //ERROR HANDLING; you can check errno to see what went wrong
-            return -2;
-        }
-
-        //write FFF to drive max output
-        buffer[0] = 0x0f;
-        buffer[1] = 0xff;
-
-        length = 2;			//<<< Number of bytes to write
-        if (write(file_i2c, buffer, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
-        {
-            // ERROR HANDLING: i2c transaction failed
-            cout << "Failed to write to the i2c bus.\n" << endl;
-        }
-        else
-        {
-        cout << "DAC output 5V" << endl;
-        }
-    }else if(temp >= 0x6D)
-    {
-         int addr = 0x63;          //<<<<<The I2C address of the slave
-        if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
-        {
-            cout << "Failed to acquire bus access and/or talk to slave.\n" << endl;
-            //ERROR HANDLING; you can check errno to see what went wrong
-            return -2;
-        }
-
-        //write FFF to drive max output
-        buffer[0] = 0x00;
-        buffer[1] = 0x00;
-
-        length = 2;			//<<< Number of bytes to write
-        if (write(file_i2c, buffer, length) != length)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
-        {
-            // ERROR HANDLING: i2c transaction failed
-            cout << "Failed to write to the i2c bus.\n" << endl;
-        }
-        else
-        {
-        cout << "DAC output 0V" << endl;
-        }
+        return -1;
     }
 
+    buf[0] = pt1000->getTemperature();
+    buf[1] = pt1000->getTemperature();
 
-    this_thread::sleep_for (std::chrono::seconds(5));
+    while(1)
 
+    {
+        pt1000->updateTemperature();
+        cout << "Input Voltage " << (ADS1015->getVoltage()) << "V" << endl;
+        cout << "Temperature " << (pt1000->getTemperature()) << endl;
+
+        buf[0] = pt1000->getTemperature();
+
+	MCP4725->updateVoltage(pid->scaleOutput(pid->generateOutput(buf,setpoint,0.5)));
+
+        cout << "output " << MCP4725->getVoltage() << "V" << endl << endl;
+
+        buf[1] = buf[0];
+
+        this_thread::sleep_for (std::chrono::milliseconds(500));
 
     }
+
+    i2c_bus->i2c_close();
 }
 
+void serverLoopThread()
+{
+	while(1)
+	{
+		this_thread::sleep_for (std::chrono::milliseconds(500));
+		cout << "Server thread" << endl;
+	}
+}
+
+int main(int argc, char* argv[])
+{
+    cout << "starting control thread..." << endl;
+    thread cntrl(controlLoopThread, argc, argv);
+    cout << "starting server thread..." << endl;
+    thread server(serverLoopThread);
+
+    cntrl.join();
+    server.join();
+
+}

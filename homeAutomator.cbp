@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="src" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="src" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,7 +34,107 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="main.cpp" />
+		<Unit filename=".gitattributes" />
+		<Unit filename="CMakeFiles/2position_cntrl.dir/2_position_cntrl.cpp.o" />
+		<Unit filename="CMakeFiles/2position_cntrl.dir/CXX.includecache" />
+		<Unit filename="CMakeFiles/2position_cntrl.dir/DependInfo.cmake" />
+		<Unit filename="CMakeFiles/2position_cntrl.dir/build.make" />
+		<Unit filename="CMakeFiles/2position_cntrl.dir/cmake_clean.cmake" />
+		<Unit filename="CMakeFiles/2position_cntrl.dir/depend.internal" />
+		<Unit filename="CMakeFiles/2position_cntrl.dir/depend.make" />
+		<Unit filename="CMakeFiles/2position_cntrl.dir/flags.make" />
+		<Unit filename="CMakeFiles/2position_cntrl.dir/link.txt" />
+		<Unit filename="CMakeFiles/2position_cntrl.dir/progress.make" />
+		<Unit filename="CMakeFiles/3.7.2/CMakeCCompiler.cmake" />
+		<Unit filename="CMakeFiles/3.7.2/CMakeCXXCompiler.cmake" />
+		<Unit filename="CMakeFiles/3.7.2/CMakeDetermineCompilerABI_C.bin" />
+		<Unit filename="CMakeFiles/3.7.2/CMakeDetermineCompilerABI_CXX.bin" />
+		<Unit filename="CMakeFiles/3.7.2/CMakeSystem.cmake" />
+		<Unit filename="CMakeFiles/3.7.2/CompilerIdCXX/CMakeCXXCompilerId.cpp" />
+		<Unit filename="CMakeFiles/3.7.2/CompilerIdCXX/a.out" />
+		<Unit filename="CMakeFiles/3.7.2/CompilerIdC/CMakeCCompilerId.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="CMakeFiles/3.7.2/CompilerIdC/a.out" />
+		<Unit filename="CMakeFiles/CMakeDirectoryInformation.cmake" />
+		<Unit filename="CMakeFiles/CMakeOutput.log" />
+		<Unit filename="CMakeFiles/Makefile.cmake" />
+		<Unit filename="CMakeFiles/Makefile2" />
+		<Unit filename="CMakeFiles/TargetDirectories.txt" />
+		<Unit filename="CMakeFiles/cmake.check_cache" />
+		<Unit filename="CMakeFiles/feature_tests.bin" />
+		<Unit filename="CMakeFiles/feature_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="CMakeFiles/feature_tests.cxx" />
+		<Unit filename="CMakeFiles/progress.marks" />
+		<Unit filename="CMakeLists.txt" />
+		<Unit filename="build/CMakeCache.txt" />
+		<Unit filename="build/CMakeFiles/3.7.2/CMakeCCompiler.cmake" />
+		<Unit filename="build/CMakeFiles/3.7.2/CMakeCXXCompiler.cmake" />
+		<Unit filename="build/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_C.bin" />
+		<Unit filename="build/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_CXX.bin" />
+		<Unit filename="build/CMakeFiles/3.7.2/CMakeSystem.cmake" />
+		<Unit filename="build/CMakeFiles/3.7.2/CompilerIdCXX/CMakeCXXCompilerId.cpp" />
+		<Unit filename="build/CMakeFiles/3.7.2/CompilerIdCXX/a.out" />
+		<Unit filename="build/CMakeFiles/3.7.2/CompilerIdC/CMakeCCompilerId.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="build/CMakeFiles/3.7.2/CompilerIdC/a.out" />
+		<Unit filename="build/CMakeFiles/CMakeDirectoryInformation.cmake" />
+		<Unit filename="build/CMakeFiles/CMakeOutput.log" />
+		<Unit filename="build/CMakeFiles/Makefile.cmake" />
+		<Unit filename="build/CMakeFiles/Makefile2" />
+		<Unit filename="build/CMakeFiles/TargetDirectories.txt" />
+		<Unit filename="build/CMakeFiles/cmake.check_cache" />
+		<Unit filename="build/CMakeFiles/feature_tests.bin" />
+		<Unit filename="build/CMakeFiles/feature_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="build/CMakeFiles/feature_tests.cxx" />
+		<Unit filename="build/CMakeFiles/homeAutomator.dir/CXX.includecache" />
+		<Unit filename="build/CMakeFiles/homeAutomator.dir/DependInfo.cmake" />
+		<Unit filename="build/CMakeFiles/homeAutomator.dir/build.make" />
+		<Unit filename="build/CMakeFiles/homeAutomator.dir/cmake_clean.cmake" />
+		<Unit filename="build/CMakeFiles/homeAutomator.dir/depend.internal" />
+		<Unit filename="build/CMakeFiles/homeAutomator.dir/depend.make" />
+		<Unit filename="build/CMakeFiles/homeAutomator.dir/flags.make" />
+		<Unit filename="build/CMakeFiles/homeAutomator.dir/link.txt" />
+		<Unit filename="build/CMakeFiles/homeAutomator.dir/progress.make" />
+		<Unit filename="build/CMakeFiles/homeAutomator.dir/src/main.cpp.o" />
+		<Unit filename="build/CMakeFiles/progress.marks" />
+		<Unit filename="build/CMakeFiles/testStudent.dir/CXX.includecache" />
+		<Unit filename="build/CMakeFiles/testStudent.dir/DependInfo.cmake" />
+		<Unit filename="build/CMakeFiles/testStudent.dir/build.make" />
+		<Unit filename="build/CMakeFiles/testStudent.dir/cmake_clean.cmake" />
+		<Unit filename="build/CMakeFiles/testStudent.dir/depend.internal" />
+		<Unit filename="build/CMakeFiles/testStudent.dir/depend.make" />
+		<Unit filename="build/CMakeFiles/testStudent.dir/flags.make" />
+		<Unit filename="build/CMakeFiles/testStudent.dir/link.txt" />
+		<Unit filename="build/CMakeFiles/testStudent.dir/progress.make" />
+		<Unit filename="build/CMakeFiles/testStudent.dir/src/main.cpp.o" />
+		<Unit filename="build/Makefile" />
+		<Unit filename="build/cmake_install.cmake" />
+		<Unit filename="build/homeAutomator" />
+		<Unit filename="examples/2_position_cntrl.cpp" />
+		<Unit filename="examples/DAC_OFF.out" />
+		<Unit filename="examples/DAC_ON.out" />
+		<Unit filename="examples/READ_ADC.out" />
+		<Unit filename="examples/a.out" />
+		<Unit filename="examples/i2c_DAC_OFF.cpp" />
+		<Unit filename="examples/i2c_DAC_ON.cpp" />
+		<Unit filename="examples/i2c_READ_ADC.cpp" />
+		<Unit filename="include/ADC.h" />
+		<Unit filename="include/DAC.h" />
+		<Unit filename="include/PID.h" />
+		<Unit filename="include/PT1000.h" />
+		<Unit filename="include/i2c.h" />
+		<Unit filename="src/ADC.cpp" />
+		<Unit filename="src/DAC.cpp" />
+		<Unit filename="src/PID.cpp" />
+		<Unit filename="src/PT1000.cpp" />
+		<Unit filename="src/i2c.cpp" />
+		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
