@@ -18,7 +18,7 @@
 
 using namespace std;
 
-void controlLoopThread(int argc, char* argv[])
+int controlLoopThread(int argc, char* argv[])
 {
     //variables
     float u = 0;
