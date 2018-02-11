@@ -19,6 +19,34 @@
 
 using namespace std;
 
+int inputThread()
+{
+
+  i2c* i2c_bus = new i2c;
+  ADC* ADS1015 = new ADC(i2c_bus,0x49);
+
+  while(true)
+  {
+    ADS1015->updateVoltage();
+    cout << "inputThread: " << ADS1015->getVoltage() << "V" << endl;
+    this_thread::sleep_for (std::chrono::milliseconds(1000));
+  }
+}
+
+int outputThread()
+{
+
+  i2c* i2c_bus = new i2c;
+  DAC* MCP4725 = new DAC(i2c_bus,0x63);
+
+  while(true)
+  {
+    MCP4725->updateVoltage(0.0);
+    cout << "outputThread: " << MCP4725->getVoltage() << "V" << endl;
+    this_thread::sleep_for (std::chrono::milliseconds(1000));
+  }
+}
+
 int controlLoopThread(int argc, char* argv[])
 {
     //variables
@@ -59,19 +87,21 @@ int controlLoopThread(int argc, char* argv[])
     while(1)
 
     {
+      /*
         pt1000->updateTemperature();
         cout << "Input Voltage " << (ADS1015->getVoltage()) << "V" << endl;
         cout << "Temperature " << (pt1000->getTemperature()) << endl;
 
         buf[0] = pt1000->getTemperature();
 
-	MCP4725->updateVoltage(pid->scaleOutput(pid->generateOutput(buf,setpoint,0.5)));
+	      MCP4725->updateVoltage(pid->scaleOutput(pid->generateOutput(buf,setpoint,0.5)));
 
         cout << "output " << MCP4725->getVoltage() << "V" << endl << endl;
 
         buf[1] = buf[0];
-
-        this_thread::sleep_for (std::chrono::milliseconds(500));
+        */
+        cout << "cntrl" << endl;
+        this_thread::sleep_for (std::chrono::milliseconds(1000));
 
     }
 
@@ -93,8 +123,14 @@ int main(int argc, char* argv[])
     thread cntrl(controlLoopThread, argc, argv);
     cout << "starting server thread..." << endl;
     thread server(serverLoopThread);
+    cout << "starting input thread..." << endl;
+    thread input(inputThread);
+    cout << "starting output thread..." << endl;
+    thread output(outputThread);
 
     cntrl.join();
     server.join();
+    input.join();
+    output.join();
 
 }
