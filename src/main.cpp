@@ -25,11 +25,15 @@ int inputThread()
   i2c* i2c_bus = new i2c;
   ADC* ADS1015 = new ADC(i2c_bus,0x49);
 
+  //sensor
+  PT1000* pt1000 = new PT1000(ADS1015,42.9487,-19.3551);
+
+
   while(true)
   {
-    ADS1015->updateVoltage();
-    cout << "inputThread: " << ADS1015->getVoltage() << "V" << endl;
-    this_thread::sleep_for (std::chrono::milliseconds(1000));
+    pt1000->updateTemperature();
+    //cout << "inputThread: " << pt1000->getTemperature() << " °C" << endl;
+    this_thread::sleep_for (std::chrono::milliseconds(5));
   }
 }
 
@@ -39,11 +43,14 @@ int outputThread()
   i2c* i2c_bus = new i2c;
   DAC* MCP4725 = new DAC(i2c_bus,0x63);
 
+  //actuator
+  SSR* crydom = new SSR(MCP4725,5,100,1.2);
+
   while(true)
   {
-    MCP4725->updateVoltage(0.0);
-    cout << "outputThread: " << MCP4725->getVoltage() << "V" << endl;
-    this_thread::sleep_for (std::chrono::milliseconds(1000));
+    crydom->updateOutput(0.75);
+    //cout << "outputThread: " << MCP4725->getVoltage() << "V" << endl;
+    this_thread::sleep_for (std::chrono::milliseconds(5));
   }
 }
 
@@ -53,18 +60,6 @@ int controlLoopThread(int argc, char* argv[])
     float u = 0;
     float buf[2];
     float setpoint = 0;
-
-    //i2c BUS
-    i2c* i2c_bus = new i2c;
-
-    //I/O interfaces
-    ADC* ADS1015 = new ADC(i2c_bus,0x49);
-    DAC* MCP4725 = new DAC(i2c_bus,0x63);
-    ADS1015->updateVoltage();
-    MCP4725->updateVoltage(0.0);
-
-    //sensor
-    PT1000* pt1000 = new PT1000(ADS1015,42.9487,-19.3551);
 
     //Controller
     PID* pid = new PID();
@@ -101,7 +96,7 @@ int controlLoopThread(int argc, char* argv[])
         buf[1] = buf[0];
         */
         cout << "cntrl" << endl;
-        this_thread::sleep_for (std::chrono::milliseconds(1000));
+        this_thread::sleep_for (std::chrono::milliseconds(30));
 
     }
 
@@ -112,7 +107,7 @@ void serverLoopThread()
 {
 	while(1)
 	{
-		this_thread::sleep_for (std::chrono::milliseconds(500));
+		this_thread::sleep_for (std::chrono::milliseconds(200));
 		cout << "Server thread" << endl;
 	}
 }
