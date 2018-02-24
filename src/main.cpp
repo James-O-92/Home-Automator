@@ -17,9 +17,12 @@
 #include <stdlib.h>     /* atexit */
 #include <thread>
 #include <queue>
+#include <mutex>
 
 using namespace std;
 
+mutex I_mtx;
+mutex O_mtx;
 float input;
 float output;
 
