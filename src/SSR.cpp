@@ -22,10 +22,6 @@ float SSR::getOutput()
 
 void SSR::updateOutput(float dutyCycle)
 {
-  float prog = timeStep/T;
-  cout << "T: " << T << " timestep/T "<< prog << endl;
-  cout << "timestep: " << timeStep << endl;
-  duty = dutyCycle;
 
   if(dutyCycle <= minDuty)
   {

@@ -38,8 +38,11 @@ int inputThread()
   while(true)
   {
     pt1000->updateTemperature();
+    I_mtx.lock();
+    input = pt1000->getTemperature();
+    I_mtx.unlock();
     //cout << "inputThread: " << pt1000->getTemperature() << " °C" << endl;
-    this_thread::sleep_for (std::chrono::milliseconds(5));
+    this_thread::sleep_for (std::chrono::milliseconds(1));
   }
 }
 
@@ -54,9 +57,11 @@ int outputThread()
 
   while(true)
   {
-    crydom->updateOutput(0.12);
-    cout << "outputThread: " << crydom->getOutput() << "% " << MCP4725->getVoltage() << "V" << endl;
-    this_thread::sleep_for (std::chrono::milliseconds(750));
+    O_mtx.lock();
+    crydom->updateOutput(output);
+    O_mtx.unlock();
+    //cout << "outputThread: " << crydom->getOutput() << "% " << MCP4725->getVoltage() << "V" << endl;
+    this_thread::sleep_for (std::chrono::milliseconds(1));
   }
 }
 
@@ -66,12 +71,11 @@ int controlLoopThread(int argc, char* argv[])
     float u = 0;
     float buf[2];
     float setpoint = 0;
-    /*
+
     //Controller
     PID* pid = new PID();
     pid->tune(0.05,0.005,0.0);
     pid->setScaler(0.205,2.95);
-    pt1000->updateTemperature();
 
     if(argc == 2)
     {
@@ -82,27 +86,44 @@ int controlLoopThread(int argc, char* argv[])
         return -1;
     }
 
-    buf[0] = pt1000->getTemperature();
-    buf[1] = pt1000->getTemperature();
-    */
+    I_mtx.lock();
+    buf[0] = input;
+    I_mtx.unlock();
+
+    this_thread::sleep_for (std::chrono::milliseconds(30));
+
+    I_mtx.lock();
+    buf[1] = input;
+    I_mtx.unlock();
+
+
     while(1)
 
     {
-      /*
-        pt1000->updateTemperature();
-        cout << "Input Voltage " << (ADS1015->getVoltage()) << "V" << endl;
-        cout << "Temperature " << (pt1000->getTemperature()) << endl;
 
-        buf[0] = pt1000->getTemperature();
+      I_mtx.lock();
+      buf[0] = input;
+      I_mtx.unlock();
 
-	      MCP4725->updateVoltage(pid->scaleOutput(pid->generateOutput(buf,setpoint,0.5)));
+      this_thread::sleep_for (std::chrono::milliseconds(2));
 
-        cout << "output " << MCP4725->getVoltage() << "V" << endl << endl;
+      I_mtx.lock();
+      buf[1] = input;
+      I_mtx.unlock();
 
-        buf[1] = buf[0];
-        */
-        //cout << "cntrl" << endl;
-        this_thread::sleep_for (std::chrono::milliseconds(30));
+      cout << "Temperature " << buf[0] << endl;
+
+      O_mtx.lock();
+
+      output = (pid->scaleOutput(pid->generateOutput(buf,setpoint,0.032))/5);
+      cout << "output " << output << "V" << endl << endl;
+
+      O_mtx.unlock();
+
+      buf[1] = buf[0];
+
+      //cout << "cntrl" << endl;
+      this_thread::sleep_for (std::chrono::milliseconds(30));
 
     }
 }
