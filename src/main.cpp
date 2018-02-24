@@ -50,7 +50,7 @@ int outputThread()
   DAC* MCP4725 = new DAC(i2c_bus,0x63);
 
   //actuator
-  SSR* crydom = new SSR(MCP4725,5,100,1.2);
+  SSR* crydom = new SSR(MCP4725,0.01,50,1.2);
 
   while(true)
   {
