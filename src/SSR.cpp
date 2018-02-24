@@ -18,10 +18,10 @@ float SSR::getOutput()
   return output;
 
 }
-/*
+
 void SSR::updateOutput(float dutyCycle)
 {
-
+/*
   if((dutyCycle*5) <= minOutput)
   {
     if((timeStep/T) > dutyCycle)
@@ -48,5 +48,5 @@ void SSR::updateOutput(float dutyCycle)
     MCP4725->updateVoltage(output);
 
   }
+  */
 }
-*/
