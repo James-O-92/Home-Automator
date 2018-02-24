@@ -53,7 +53,7 @@ int outputThread()
   DAC* MCP4725 = new DAC(i2c_bus,0x63);
 
   //actuator
-  SSR* crydom = new SSR(MCP4725,0.01,20,1.2);
+  SSR* crydom = new SSR(MCP4725,0.05,1,1.2);
 
   while(true)
   {
@@ -71,7 +71,7 @@ int outputThread()
     }
     O_mtx.unlock();
     //cout << "outputThread: " << crydom->getOutput() << "% " << MCP4725->getVoltage() << "V" << endl;
-    this_thread::sleep_for (std::chrono::milliseconds(10));
+    this_thread::sleep_for (std::chrono::milliseconds(5));
   }
 }
 
