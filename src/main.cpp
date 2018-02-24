@@ -85,7 +85,7 @@ int controlLoopThread(int argc, char* argv[])
     //Controller
     PID* pid = new PID();
     pid->tune(2.0,0.06,0.0);
-    pid->setScaler(0.205,2.95);
+    pid->setScaler(0.025,.5);
 
     if(argc == 2)
     {
@@ -127,7 +127,7 @@ int controlLoopThread(int argc, char* argv[])
 
       u = (pid->scaleOutput(pid->generateOutput(buf,setpoint,0.032))/5);
 
-      if((u < 0) || (u > 5))
+      if((u < -0.1) || (u > 1.1))
       {
         pid->setSaturated(true);
       }else
