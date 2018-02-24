@@ -29,11 +29,10 @@ int inputThread()
   //sensor
   PT1000* pt1000 = new PT1000(ADS1015,42.9487,-19.3551);
 
-
   while(true)
   {
     pt1000->updateTemperature();
-    //cout << "inputThread: " << pt1000->getTemperature() << " °C" << endl;
+    cout << "inputThread: " << pt1000->getTemperature() << " °C" << endl;
     this_thread::sleep_for (std::chrono::milliseconds(5));
   }
 }
@@ -50,7 +49,7 @@ int outputThread()
   while(true)
   {
     crydom->updateOutput(0.75);
-    //cout << "outputThread: " << MCP4725->getVoltage() << "V" << endl;
+    cout << "outputThread: " << crydom->getOutput() << "% " << MCP4725->getVoltage() << "V" << endl;
     this_thread::sleep_for (std::chrono::milliseconds(5));
   }
 }
@@ -100,8 +99,6 @@ int controlLoopThread(int argc, char* argv[])
         this_thread::sleep_for (std::chrono::milliseconds(30));
 
     }
-
-    //i2c_bus->i2c_close();
 }
 
 void serverLoopThread()
