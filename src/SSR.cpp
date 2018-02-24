@@ -41,7 +41,8 @@ void SSR::updateOutput(float dutyCycle)
         timeStep= 0;
     }
 
-  }else{
+  }else
+  {
 
     output = dutyCycle*5;
     MCP4725->updateVoltage(output);
