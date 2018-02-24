@@ -58,10 +58,20 @@ int outputThread()
   while(true)
   {
     O_mtx.lock();
-    crydom->updateOutput(output);
+
+    if(output > 1)
+    {
+      crydom->updateOutput(1);
+    }else if(output < 0)
+    {
+      crydom->updateOutput(0);
+    }else
+    {
+      crydom->updateOutput(output);
+    }
     O_mtx.unlock();
-    //cout << "outputThread: " << crydom->getOutput() << "% " << MCP4725->getVoltage() << "V" << endl;
-    this_thread::sleep_for (std::chrono::milliseconds(1));
+    cout << "outputThread: " << crydom->getOutput() << "% " << MCP4725->getVoltage() << "V" << endl;
+    this_thread::sleep_for (std::chrono::milliseconds(30));
   }
 }
 
