@@ -101,7 +101,7 @@ int controlLoopThread(int argc, char* argv[])
 
     }
 
-    i2c_bus->i2c_close();
+    //i2c_bus->i2c_close();
 }
 
 void serverLoopThread()
