@@ -9,6 +9,7 @@ SSR::SSR(DAC* _DAC, float _dT, float _frequency, float _minOutput)
   frequency = _frequency;
   T = (1/frequency);
   minOutput = _minOutput;
+  minDuty =  minOutput/5;
 
 }
 
@@ -26,14 +27,15 @@ void SSR::updateOutput(float dutyCycle)
   cout << "timestep: " << timeStep << endl;
   duty = dutyCycle;
 
-  if((dutyCycle*5) <= minOutput)
+  if(dutyCycle <= minDuty)
   {
 
+    duty = dutyCycle/minDuty;
     if(timeStep >= T)
     {
         timeStep= 0;
     }
-    else if((timeStep/T) > dutyCycle)
+    else if((timeStep/T) > duty)
     {
 
       MCP4725->updateVoltage(0);

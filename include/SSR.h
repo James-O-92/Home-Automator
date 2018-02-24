@@ -16,6 +16,7 @@ class SSR
 
     private:
       float duty;
+      float minDuty;
       DAC* MCP4725;
       float output;
       float dT;
