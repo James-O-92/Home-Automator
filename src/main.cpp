@@ -12,6 +12,7 @@
 #include "ADC.h"
 #include "DAC.h"
 #include "PT1000.h"
+#include "SSR.h"
 #include "PID.h"
 #include <stdlib.h>     /* atexit */
 #include <thread>
@@ -60,7 +61,7 @@ int controlLoopThread(int argc, char* argv[])
     float u = 0;
     float buf[2];
     float setpoint = 0;
-
+    /*
     //Controller
     PID* pid = new PID();
     pid->tune(0.05,0.005,0.0);
@@ -78,7 +79,7 @@ int controlLoopThread(int argc, char* argv[])
 
     buf[0] = pt1000->getTemperature();
     buf[1] = pt1000->getTemperature();
-
+    */
     while(1)
 
     {
