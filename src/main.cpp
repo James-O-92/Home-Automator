@@ -32,7 +32,7 @@ int inputThread()
   i2c* i2c_bus = new i2c;
   ADC* ADS1015 = new ADC(i2c_bus,0x49);
 
-  float buf[3];
+  float buf[20];
   float avg_temp;
 
   //sensor
@@ -42,14 +42,21 @@ int inputThread()
   {
     pt1000->updateTemperature();
     buf[0] = pt1000->getTemperature();
-    avg_temp = (buf[0] + buf[1] + buf[2])/3;
+    avg_temp = 0;
+    for(int i = 0; i < 20; i++)
+    {
+      avg_temp = avg_temp + buf[i];
+    }
+    avg_temp = avg_temp/20;
 
     I_mtx.lock();
     input = avg_temp;
     I_mtx.unlock();
 
-    buf[1] = buf[0];
-    buf[2] = buf[1];
+    for(int i = 1; i < 20; i++)
+    {
+      buf[i] = buf[i-1];
+    }
     //cout << "inputThread: " << pt1000->getTemperature() << " °C" << endl;
     this_thread::sleep_for (std::chrono::milliseconds(2));
   }
