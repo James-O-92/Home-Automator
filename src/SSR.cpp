@@ -22,6 +22,8 @@ float SSR::getOutput()
 void SSR::updateOutput(float dutyCycle)
 {
 
+  duty = dutyCycle;
+
   if((dutyCycle*5) <= minOutput)
   {
 

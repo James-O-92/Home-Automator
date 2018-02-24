@@ -20,6 +20,9 @@
 
 using namespace std;
 
+float input;
+float output;
+
 int inputThread()
 {
 
@@ -48,7 +51,7 @@ int outputThread()
 
   while(true)
   {
-    crydom->updateOutput(0.75);
+    crydom->updateOutput(0.12);
     cout << "outputThread: " << crydom->getOutput() << "% " << MCP4725->getVoltage() << "V" << endl;
     this_thread::sleep_for (std::chrono::milliseconds(5));
   }
