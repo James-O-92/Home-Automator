@@ -18,7 +18,7 @@ float SSR::getOutput()
   return output;
 
 }
-
+/*
 void SSR::updateOutput(float dutyCycle)
 {
 
@@ -49,3 +49,4 @@ void SSR::updateOutput(float dutyCycle)
 
   }
 }
+/*
