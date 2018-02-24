@@ -1,7 +1,7 @@
 #include "SSR.h"
 #include <iostream>
 
-void SSR::SSR(DAC* _DAC, float _dT, float _frequency, float _minOutput)
+SSR::SSR(DAC* _DAC, float _dT, float _frequency, float _minOutput)
 {
 
   MCP4725 = _DAC;
