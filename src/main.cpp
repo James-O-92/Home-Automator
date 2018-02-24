@@ -38,7 +38,7 @@ int inputThread()
   while(true)
   {
     pt1000->updateTemperature();
-    cout << "inputThread: " << pt1000->getTemperature() << " °C" << endl;
+    //cout << "inputThread: " << pt1000->getTemperature() << " °C" << endl;
     this_thread::sleep_for (std::chrono::milliseconds(5));
   }
 }
@@ -56,7 +56,7 @@ int outputThread()
   {
     crydom->updateOutput(0.12);
     cout << "outputThread: " << crydom->getOutput() << "% " << MCP4725->getVoltage() << "V" << endl;
-    this_thread::sleep_for (std::chrono::milliseconds(5));
+    this_thread::sleep_for (std::chrono::milliseconds(750));
   }
 }
 
@@ -101,7 +101,7 @@ int controlLoopThread(int argc, char* argv[])
 
         buf[1] = buf[0];
         */
-        cout << "cntrl" << endl;
+        //cout << "cntrl" << endl;
         this_thread::sleep_for (std::chrono::milliseconds(30));
 
     }
@@ -112,7 +112,7 @@ void serverLoopThread()
 	while(1)
 	{
 		this_thread::sleep_for (std::chrono::milliseconds(200));
-		cout << "Server thread" << endl;
+		//cout << "Server thread" << endl;
 	}
 }
 

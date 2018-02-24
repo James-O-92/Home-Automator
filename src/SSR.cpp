@@ -21,7 +21,7 @@ float SSR::getOutput()
 
 void SSR::updateOutput(float dutyCycle)
 {
-
+  cout << "timestep: " << timeStep << endl;
   duty = dutyCycle;
 
   if((dutyCycle*5) <= minOutput)
