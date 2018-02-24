@@ -27,10 +27,10 @@ void SSR::updateOutput(float dutyCycle)
 
     if((timeStep/T) > dutyCycle)
     {
-      /*
+
       MCP4725->updateVoltage(0);
       timeStep = timeStep + dT;
-      */
+      
     }else
     {
       /*
