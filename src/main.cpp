@@ -74,7 +74,7 @@ int controlLoopThread(int argc, char* argv[])
 
     //Controller
     PID* pid = new PID();
-    pid->tune(0.05,0.005,0.0);
+    pid->tune(2.0,0.05,0.0);
     pid->setScaler(0.205,2.95);
 
     if(argc == 2)
