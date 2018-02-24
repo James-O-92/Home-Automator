@@ -10,6 +10,7 @@ class PID
         float generateOutput(float buffer[], float setpoint, float timeStep);
         float scaleOutput(float output);
         void setScaler(float grad, float y_int);
+        void setSaturated(bool _saturated);
 
     private:
         float Kp;
@@ -18,6 +19,7 @@ class PID
         float integral;
         float scale_grad;
         float scale_Y_Int;
+        bool saturated;
 };
 
 #endif // PID_H

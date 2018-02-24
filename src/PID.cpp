@@ -25,7 +25,10 @@ float PID::generateOutput(float buffer[], float setpoint, float timeStep)
     output = (error[0])*Kp;
     output = output + Kd*((error[0] - error[1])/timeStep);
 
-    integral = integral + Ki*((error[1] + error[0])/2)*timeStep;
+    if(!saturated)
+    {
+      integral = integral + Ki*((error[1] + error[0])/2)*timeStep;
+    }
 
     cout << "Integral " << integral << endl;
 
@@ -49,6 +52,7 @@ void PID::setScaler(float grad, float y_int)
     scale_Y_Int = y_int;
 }
 
-
-
-
+void PID::setSaturated(bool _saturated)
+{
+  saturated = _saturated;
+}

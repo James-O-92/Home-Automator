@@ -84,7 +84,7 @@ int controlLoopThread(int argc, char* argv[])
 
     //Controller
     PID* pid = new PID();
-    pid->tune(2.0,0.05,0.0);
+    pid->tune(2.0,0.06,0.0);
     pid->setScaler(0.205,2.95);
 
     if(argc == 2)
@@ -125,7 +125,17 @@ int controlLoopThread(int argc, char* argv[])
 
       O_mtx.lock();
 
-      output = (pid->scaleOutput(pid->generateOutput(buf,setpoint,0.032))/5);
+      u = (pid->scaleOutput(pid->generateOutput(buf,setpoint,0.032))/5);
+
+      if((u < 0) || (u > 5))
+      {
+        pid->setSaturated(true);
+      }else
+      {
+        pid->setSaturated(false);
+      }
+
+      output = u;
       cout << "output " << output << "V" << endl << endl;
 
       O_mtx.unlock();
