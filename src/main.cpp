@@ -135,7 +135,7 @@ int controlLoopThread(int argc, char* argv[])
       if (!cur_term)
       {
         setupterm( NULL, STDOUT_FILENO, &success );
-        putp( tigetstr( "cup" ), 0, 0, 0, 0, 0, 0, 0, 0, 0 ) != ERR;
+        putp( tigetstr( "cup" ));
       }
 
       I_mtx.lock();
