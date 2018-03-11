@@ -18,6 +18,8 @@
 #include <thread>
 #include <queue>
 #include <mutex>
+#include <unistd.h>
+#include <term.h>
 
 using namespace std;
 
@@ -97,6 +99,7 @@ int controlLoopThread(int argc, char* argv[])
     float u = 0;
     float buf[2];
     float setpoint = 0;
+    int success = 0;
 
     //Controller
     PID* pid = new PID();
@@ -126,6 +129,13 @@ int controlLoopThread(int argc, char* argv[])
     while(1)
 
     {
+
+
+      if (!cur_term)
+      {
+        setupterm( NULL, STDOUT_FILENO, &success );
+        putp( tigetstr( "cup" ), 0, 0, 0, 0, 0, 0, 0, 0, 0 ) != ERR;
+      }
 
       I_mtx.lock();
       buf[0] = input;
