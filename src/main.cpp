@@ -20,6 +20,7 @@
 #include <mutex>
 #include <unistd.h>
 #include <term.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -147,7 +148,7 @@ int controlLoopThread(int argc, char* argv[])
       buf[1] = input;
       I_mtx.unlock();
 
-      cout << "Temperature " << buf[0] << endl;
+      //cout << "Temperature " << buf[0] << endl;
 
       O_mtx.lock();
 
@@ -162,7 +163,7 @@ int controlLoopThread(int argc, char* argv[])
       }
 
       output = u;
-      cout << "output " << u << endl << endl;
+      //cout << "output " << u << endl << endl;
 
       O_mtx.unlock();
 
