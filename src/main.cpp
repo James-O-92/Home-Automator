@@ -96,6 +96,7 @@ int outputThread()
 
 int controlLoopThread(int argc, char* argv[])
 {
+	
     //variables
     float u = 0;
     float buf[2];
@@ -137,7 +138,7 @@ int controlLoopThread(int argc, char* argv[])
         setupterm( NULL, STDOUT_FILENO, &success );
         putp( tigetstr( "cup" ));
       }
-      */
+      
       I_mtx.lock();
       buf[0] = input;
       I_mtx.unlock();
@@ -171,7 +172,7 @@ int controlLoopThread(int argc, char* argv[])
 
       //cout << "cntrl" << endl;
       this_thread::sleep_for (std::chrono::milliseconds(30));
-
+*/
     }
 }
 
