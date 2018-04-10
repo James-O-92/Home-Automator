@@ -130,14 +130,14 @@ int controlLoopThread(int argc, char* argv[])
     while(1)
 
     {
-
+      /*
 
       if (!cur_term)
       {
         setupterm( NULL, STDOUT_FILENO, &success );
         putp( tigetstr( "cup" ));
       }
-
+      */
       I_mtx.lock();
       buf[0] = input;
       I_mtx.unlock();
